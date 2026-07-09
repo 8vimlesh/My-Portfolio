@@ -17,12 +17,12 @@ export function About() {
           </div>
         </div>
         
-        <div className="relative group">
-          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-emerald-300 rounded-2xl blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
-          <div className="relative aspect-square rounded-2xl overflow-hidden glass">
-            {/* Using a placeholder for now, ideally this would be the user's professional photo */}
+        <div className="relative group max-w-md mx-auto lg:max-w-none">
+          <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-emerald-300 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
+          <div className="relative aspect-square rounded-full overflow-hidden glass">
+            {/* User's professional photo */}
             <img 
-              src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?q=80&w=2070&auto=format&fit=crop" 
+              src="/profile.jpg" 
               alt={portfolioData.hero.name}
               className="w-full h-full object-cover filter grayscale hover:grayscale-0 transition-all duration-500"
             />
