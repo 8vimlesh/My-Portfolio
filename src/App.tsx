@@ -10,6 +10,9 @@ import { GithubStats } from "./sections/GithubStats";
 import { Contact } from "./sections/Contact";
 import { motion, useScroll, useSpring } from "framer-motion";
 
+import { CustomCursor } from "./components/ui/CustomCursor";
+import { AnimatedBackground } from "./components/ui/AnimatedBackground";
+
 function App() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -19,7 +22,10 @@ function App() {
   });
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-emerald-500/30">
+    <div className="min-h-screen bg-transparent text-foreground selection:bg-emerald-500/30">
+      <CustomCursor />
+      <AnimatedBackground />
+      
       {/* Scroll Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-emerald-500 origin-left z-[60]"

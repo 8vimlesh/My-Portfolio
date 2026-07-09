@@ -11,84 +11,87 @@
   --color-muted-foreground: var(--muted-foreground);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
-  --color-input: var(--input);
   --color-ring: var(--ring);
+  
+  /* Animations */
+  --animate-aurora: aurora 20s linear infinite;
+  --animate-border-spin: border-spin 4s linear infinite;
 }
 
 @layer base {
   :root {
-    --background: #ffffff;
-    --foreground: #09090b;
+    /* Premium Dark Mode Defaults */
+    --background: #050505;
+    --foreground: #fafafa;
 
     --primary: #10b981; /* Emerald green */
     --primary-foreground: #ffffff;
 
-    --secondary: #f4f4f5;
-    --secondary-foreground: #18181b;
-
-    --muted: #f4f4f5;
-    --muted-foreground: #71717a;
-
-    --accent: #10b981;
-    --accent-foreground: #ffffff;
-
-    --destructive: #ef4444;
-    --destructive-foreground: #fafafa;
-
-    --border: #e4e4e7;
-    --input: #e4e4e7;
-    --ring: #10b981;
-
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    --background: #09090b;
-    --foreground: #fafafa;
-
-    --primary: #10b981;
-    --primary-foreground: #ffffff;
-
-    --secondary: #27272a;
+    --secondary: #121214;
     --secondary-foreground: #fafafa;
 
-    --muted: #27272a;
+    --muted: #18181b;
     --muted-foreground: #a1a1aa;
 
     --accent: #10b981;
     --accent-foreground: #ffffff;
 
-    --destructive: #7f1d1d;
-    --destructive-foreground: #fafafa;
-
     --border: #27272a;
-    --input: #27272a;
     --ring: #10b981;
+
+    --radius: 0.75rem;
   }
 }
 
 @layer base {
   * {
     border-color: var(--border);
+    cursor: none; /* Hide default cursor for custom magnetic cursor */
   }
   body {
     background-color: var(--background);
     color: var(--foreground);
     font-feature-settings: "rlig" 1, "calt" 1;
+    letter-spacing: -0.01em;
+    overflow-x: hidden;
+  }
+  
+  /* Show cursor on touch devices where custom cursor won't work well */
+  @media (pointer: coarse) {
+    * {
+      cursor: auto !important;
+    }
   }
 }
 
 @utility glass {
-  background-color: rgb(255 255 255 / 0.05);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgb(255 255 255 / 0.1);
+  background-color: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
 }
 
 @utility text-gradient {
   background-clip: text;
   color: transparent;
-  background-image: linear-gradient(to right, var(--primary), #34d399);
+  background-image: linear-gradient(to right, var(--primary), #34d399, #6ee7b7);
+}
+
+@utility noise-bg {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+@keyframes aurora {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes border-spin {
+  100% {
+    transform: rotate(1turn);
+  }
 }
