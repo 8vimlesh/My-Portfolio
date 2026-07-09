@@ -170,7 +170,7 @@ export const portfolioData = {
       learnings: "Developed strong business acumen and professional data interpretation skills.",
     }
   ],
-  experience: [],
+  experience: [] as Array<{ id: string | number; title: string; company: string; date: string; description: string }>,
   certifications: [
     {
       id: 1,
@@ -194,7 +194,7 @@ export const portfolioData = {
       description: "Completed industry-based simulation focused on data storytelling and business insight generation.",
     },
   ],
-  achievements: [],
+  achievements: [] as Array<{ id: string | number; title: string; description: string; date: string }>,
   socials: {
     github: "https://github.com/8vimlesh",
     linkedin: "https://www.linkedin.com/in/vimleshtiwari2005/",
