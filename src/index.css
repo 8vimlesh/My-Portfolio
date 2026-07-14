@@ -13,85 +13,62 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-border: var(--border);
   --color-ring: var(--ring);
-  
-  /* Animations */
-  --animate-aurora: aurora 20s linear infinite;
-  --animate-border-spin: border-spin 4s linear infinite;
+
+  --font-display: "Archivo Black", sans-serif;
+  --font-sans: "Inter", sans-serif;
+  --font-script: "Caveat", cursive;
 }
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
   :root {
-    /* Premium Dark Mode Defaults */
-    --background: #050505;
-    --foreground: #fafafa;
+    /* Dark, Moody, Editorial Theme */
+    --background: #0a0a0a;
+    --foreground: #ffffff;
 
-    --primary: #10b981; /* Emerald green */
+    --primary: #e02020; /* Crimson red */
     --primary-foreground: #ffffff;
 
-    --secondary: #121214;
-    --secondary-foreground: #fafafa;
+    --secondary: #111111; /* Card/Section backgrounds */
+    --secondary-foreground: #ffffff;
 
-    --muted: #18181b;
-    --muted-foreground: #a1a1aa;
+    --muted: #0a0a0a;
+    --muted-foreground: #9a9a9a;
 
-    --accent: #10b981;
+    --accent: #e02020;
     --accent-foreground: #ffffff;
 
-    --border: #27272a;
-    --ring: #10b981;
+    --border: #1a1a1a;
+    --ring: #e02020;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
   }
-}
 
-@layer base {
   * {
     border-color: var(--border);
-    cursor: none; /* Hide default cursor for custom magnetic cursor */
   }
+  
   body {
     background-color: var(--background);
     color: var(--foreground);
+    font-family: var(--font-sans);
     font-feature-settings: "rlig" 1, "calt" 1;
     letter-spacing: -0.01em;
     overflow-x: hidden;
   }
-  
-  /* Show cursor on touch devices where custom cursor won't work well */
-  @media (pointer: coarse) {
-    * {
-      cursor: auto !important;
-    }
-  }
 }
 
-@utility glass {
-  background-color: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-}
-
-@utility text-gradient {
+@utility text-gradient-red {
   background-clip: text;
+  -webkit-background-clip: text;
   color: transparent;
-  background-image: linear-gradient(to right, var(--primary), #34d399, #6ee7b7);
+  background-image: linear-gradient(to bottom, #e02020 20%, rgba(224, 32, 32, 0.2) 100%);
 }
 
-@utility noise-bg {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
-  pointer-events: none;
-}
-
-@keyframes aurora {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes border-spin {
-  100% {
-    transform: rotate(1turn);
-  }
+@utility glass-card {
+  background-color: #111111;
+  border: 1px solid #1a1a1a;
 }

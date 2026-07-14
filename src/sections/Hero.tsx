@@ -1,111 +1,124 @@
-import React from "react";
-import { motion } from "framer-motion";
-import { portfolioData } from "../data/portfolio";
-import { ArrowDown, Download, Mail } from "lucide-react";
-import { MagneticButton } from "../components/ui/MagneticButton";
+import React from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { Globe, Sparkles } from 'lucide-react';
+import { portfolioData } from '../data/portfolio';
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.15,
-      delayChildren: 0.2,
-    },
-  },
-};
+export const Hero = () => {
+  const { hero } = portfolioData;
+  const { scrollY } = useScroll();
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 30, filter: "blur(10px)" },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
-    filter: "blur(0px)",
-    transition: { type: "spring" as const, stiffness: 100, damping: 20 }
-  },
-};
+  // 3D Parallax Scroll Effects for the Profile Image
+  const profileY = useTransform(scrollY, [0, 800], [0, 200]);
+  const profileRotateX = useTransform(scrollY, [0, 800], [0, 25]);
+  const profileScale = useTransform(scrollY, [0, 800], [1, 0.85]);
+  const profileOpacity = useTransform(scrollY, [0, 600], [1, 0.3]);
 
-export function Hero() {
   return (
-    <section id="hero" className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
-      
-      <div className="container mx-auto px-6 md:px-12 flex flex-col items-center text-center relative z-10">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="flex flex-col items-center"
-        >
-          <motion.div
-            variants={itemVariants}
-            className="inline-flex items-center rounded-full border border-emerald-500/30 bg-emerald-500/10 px-4 py-2 text-sm font-medium text-emerald-400 mb-8 glass"
-          >
-            <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-500 mr-2.5 animate-pulse shadow-[0_0_8px_rgba(16,185,129,0.8)]"></span>
-            Available for new opportunities
-          </motion.div>
-
-          <motion.h1
-            variants={itemVariants}
-            className="text-6xl md:text-8xl font-extrabold tracking-tighter mb-6 leading-tight"
-          >
-            Hi, I'm <br className="md:hidden" /><span className="text-gradient inline-block">{portfolioData.hero.name}</span>
-          </motion.h1>
-
-          <motion.p
-            variants={itemVariants}
-            className="text-2xl md:text-3xl text-foreground font-medium mb-8 max-w-3xl"
-          >
-            {portfolioData.hero.title}
-          </motion.p>
-
-          <motion.p
-            variants={itemVariants}
-            className="text-lg md:text-xl text-muted-foreground mb-12 max-w-2xl leading-relaxed"
-          >
-            {portfolioData.hero.description}
-          </motion.p>
-
-          <motion.div
-            variants={itemVariants}
-            className="flex flex-col sm:flex-row gap-6 items-center"
-          >
-            <MagneticButton className="rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-medium shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all">
-              <a href="#projects" className="flex items-center gap-2 px-8 py-4">
-                View Projects <ArrowDown className="w-5 h-5" />
-              </a>
-            </MagneticButton>
-            
-            <MagneticButton className="rounded-full glass border-emerald-500/20 hover:border-emerald-500/50 hover:bg-emerald-500/10 font-medium transition-all">
-              <a href="/resume.pdf" target="_blank" className="flex items-center gap-2 px-8 py-4">
-                <Download className="w-5 h-5" /> Download Resume
-              </a>
-            </MagneticButton>
-            
-            <MagneticButton className="rounded-full hover:bg-white/5 font-medium transition-all">
-              <a href="#contact" className="flex items-center gap-2 px-8 py-4">
-                <Mail className="w-5 h-5" /> Contact Me
-              </a>
-            </MagneticButton>
-          </motion.div>
-        </motion.div>
+    <section className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-12 perspective-[1200px]">
+      {/* Giant Background Text */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex justify-center pointer-events-none z-0 select-none">
+        <h1 className="font-display text-[15vw] leading-none whitespace-nowrap text-gradient-red opacity-20 transform -translate-y-10">
+          {hero.title}
+        </h1>
       </div>
 
-      {/* Animated Scroll Indicator */}
-      <motion.div 
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 1 }}
-      >
-        <span className="text-xs font-medium text-muted-foreground uppercase tracking-widest">Scroll</span>
-        <div className="w-[1px] h-12 bg-white/20 relative overflow-hidden">
-          <motion.div 
-            className="absolute top-0 left-0 w-full h-1/2 bg-emerald-500"
-            animate={{ top: ["-50%", "100%"] }}
-            transition={{ duration: 1.5, ease: "easeInOut", repeat: Infinity }}
-          />
+      <div className="relative z-10 container mx-auto px-6 md:px-12 lg:px-24 max-w-[1300px] flex flex-col lg:flex-row items-center h-full gap-12">
+        
+        {/* Left Content */}
+        <div className="flex-1 w-full flex flex-col justify-center items-start pt-12 lg:pt-0">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <p className="font-script text-3xl md:text-5xl text-foreground mb-4">
+              {hero.greeting}
+            </p>
+            
+            <h2 className="font-display text-6xl md:text-8xl lg:text-[7rem] leading-[0.85] tracking-tighter text-foreground mb-6 uppercase">
+              {hero.name.split('\n').map((line, i) => (
+                <React.Fragment key={i}>
+                  {line}
+                  <br />
+                </React.Fragment>
+              ))}
+            </h2>
+
+            <div className="inline-block bg-primary/10 border border-primary/20 px-4 py-2 rounded-full mb-6">
+              <p className="text-primary font-bold text-sm md:text-base tracking-widest uppercase">
+                {hero.role}
+              </p>
+            </div>
+
+            <p className="text-muted-foreground text-lg md:text-xl max-w-md leading-relaxed mb-8">
+              {hero.description}
+            </p>
+
+            <div className="flex items-center gap-3 text-sm uppercase tracking-widest text-muted-foreground border border-border px-5 py-3 rounded-full w-fit">
+              <Globe className="w-4 h-4 text-primary" />
+              {hero.availability}
+            </div>
+          </motion.div>
         </div>
-      </motion.div>
+
+        {/* Right Content - Photo & Stats */}
+        <div className="flex-1 relative w-full h-[60vh] lg:h-[80vh] min-h-[500px]" style={{ perspective: 1200 }}>
+          <motion.div 
+            className="absolute inset-0 overflow-visible origin-bottom"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            style={{ 
+              y: profileY,
+              rotateX: profileRotateX,
+              scale: profileScale,
+              opacity: profileOpacity,
+            }}
+          >
+            {/* Dark gradient overlay for moody effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent z-10 pointer-events-none" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10 pointer-events-none" />
+            <img 
+              src="/profile-transparent.png" 
+              alt="Portrait" 
+              className="w-full h-full object-contain object-bottom scale-[1.15] lg:scale-[1.4] xl:scale-[1.5] origin-bottom grayscale opacity-90 drop-shadow-2xl"
+            />
+          </motion.div>
+
+          {/* Floating Tagline Card */}
+          <motion.div 
+            className="absolute bottom-4 lg:bottom-12 left-0 lg:-left-20 xl:-left-32 z-20 glass-card p-6 rounded-2xl flex items-start gap-4 max-w-xs shadow-2xl"
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+          >
+            <Sparkles className="w-6 h-6 text-primary shrink-0 mt-1" />
+            <p className="font-bold text-sm tracking-widest uppercase">
+              {hero.tagline}
+            </p>
+          </motion.div>
+
+          {/* Vertical Stats Blocks */}
+          <motion.div 
+            className="absolute right-0 lg:-right-8 xl:-right-16 top-1/2 -translate-y-1/2 z-20 hidden lg:flex flex-col gap-8"
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+          >
+            {hero.stats.map((stat, i) => (
+              <div key={i} className="flex flex-col items-end border-r-2 border-primary/30 pr-6">
+                <span className="font-display text-4xl text-primary mb-1">{stat.value}</span>
+                <span className="text-xs uppercase tracking-widest text-muted-foreground text-right w-24">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
+          </motion.div>
+        </div>
+
+      </div>
     </section>
   );
-}
+};

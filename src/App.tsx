@@ -1,17 +1,11 @@
 import React from "react";
 import { Navbar } from "./components/layout/Navbar";
-import { Footer } from "./components/layout/Footer";
 import { Hero } from "./sections/Hero";
-import { About } from "./sections/About";
-import { Skills } from "./sections/Skills";
-import { Projects } from "./sections/Projects";
-import { Experience } from "./sections/Experience";
-import { GithubStats } from "./sections/GithubStats";
-import { Contact } from "./sections/Contact";
+import { SelectedProjects } from "./sections/SelectedProjects";
+import { ProcessAndQuote } from "./sections/ProcessAndQuote";
+import { ContactFooter } from "./sections/ContactFooter";
 import { motion, useScroll, useSpring } from "framer-motion";
-
 import { CustomCursor } from "./components/ui/CustomCursor";
-import { AnimatedBackground } from "./components/ui/AnimatedBackground";
 
 function App() {
   const { scrollYProgress } = useScroll();
@@ -22,13 +16,12 @@ function App() {
   });
 
   return (
-    <div className="min-h-screen bg-transparent text-foreground selection:bg-emerald-500/30">
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30 font-sans">
       <CustomCursor />
-      <AnimatedBackground />
       
       {/* Scroll Progress Bar */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-emerald-500 origin-left z-[60]"
+        className="fixed top-0 left-0 right-0 h-1 bg-primary origin-left z-[60]"
         style={{ scaleX }}
       />
       
@@ -36,15 +29,11 @@ function App() {
       
       <main>
         <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Experience />
-        <GithubStats />
-        <Contact />
+        <SelectedProjects />
+        <ProcessAndQuote />
       </main>
 
-      <Footer />
+      <ContactFooter />
     </div>
   );
 }

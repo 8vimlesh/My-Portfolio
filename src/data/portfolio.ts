@@ -1,11 +1,131 @@
 export const portfolioData = {
+  // --- New UI Schema using Original Content ---
   hero: {
-    name: "Vimlesh Tiwari",
-    title: "Software Developer | AI/ML Engineer | Data Analyst",
-    description:
-      "Crafting elegant software, building intelligent models, and uncovering insights from data. I transform complex problems into minimal, futuristic, and high-performance solutions.",
+    title: "VIMLESH",
+    greeting: "Hello, I'm",
+    name: "Vimlesh\nTiwari",
+    role: "SOFTWARE DEVELOPER & AI/ML ENGINEER",
+    description: "Crafting elegant software, building intelligent models, and uncovering insights from data. I transform complex problems into minimal, futuristic, and high-performance solutions.",
+    availability: "Available Worldwide",
+    tagline: "DESIGN. ENGINEER. DELIVER.",
+    stats: [
+      { value: "3+", label: "Certifications" },
+      { value: "8+", label: "Projects Completed" },
+      { value: "5+", label: "Core Skills" },
+    ]
   },
-  about: {
+  projects: [
+    {
+      id: "01",
+      title: "HairCraft",
+      category: "Fullstack Platform",
+      image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=1974&auto=format&fit=crop",
+      link: "https://github.com/vimlesh/haircraft",
+      techStack: ["React", "Node.js", "MongoDB", "Tailwind CSS"]
+    },
+    {
+      id: "02",
+      title: "SmartCart AI",
+      category: "AI/ML Development",
+      image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=2070&auto=format&fit=crop",
+      link: "https://github.com/vimlesh/smartcart-ai",
+      techStack: ["Python", "TensorFlow", "FastAPI", "React"]
+    },
+    {
+      id: "03",
+      title: "Workplace Safety",
+      category: "Computer Vision",
+      image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070&auto=format&fit=crop",
+      link: "https://github.com/vimlesh/safety-monitoring",
+      techStack: ["OpenCV", "PyTorch", "Docker", "AWS"]
+    },
+    {
+      id: "04",
+      title: "Traffic Analysis",
+      category: "Data Analytics",
+      image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=2070&auto=format&fit=crop",
+      link: "https://github.com/vimlesh/traffic-analysis",
+      techStack: ["Pandas", "Scikit-Learn", "Jupyter", "Matplotlib"]
+    },
+    {
+      id: "05",
+      title: "Expense Tracker",
+      category: "Software Development",
+      image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format&fit=crop",
+      link: "https://github.com/vimlesh/expense-tracker",
+      techStack: ["React Native", "Firebase", "TypeScript"]
+    },
+    {
+      id: "06",
+      title: "Sales Dashboard",
+      category: "Business Intelligence",
+      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
+      link: "#",
+      techStack: ["Tableau", "SQL", "Excel", "Data Studio"]
+    }
+  ],
+  education: [
+    {
+      degree: "Deloitte Data Analytics Virtual Internship",
+      institution: "Forage",
+      years: "2025"
+    },
+    {
+      degree: "Power BI Certification",
+      institution: "SAGE Winter school",
+      years: "2025"
+    },
+    {
+      degree: "Tata Group – Data Visualization Virtual Experience",
+      institution: "Forage",
+      years: "2025"
+    }
+  ],
+  skills: [
+    "Python", "JavaScript", "TypeScript", "React", "Node.js", "Flask", 
+    "OpenCV", "YOLO", "TensorFlow", "Pandas", "Power BI", "MongoDB", "SQL"
+  ],
+  process: [
+    {
+      step: "01",
+      title: "Analyze",
+      description: "Understanding the problem, gathering data, and identifying core requirements."
+    },
+    {
+      step: "02",
+      title: "Model",
+      description: "Designing the architecture, database schema, or machine learning model."
+    },
+    {
+      step: "03",
+      title: "Develop",
+      description: "Writing clean, scalable code and integrating AI solutions where applicable."
+    },
+    {
+      step: "04",
+      title: "Evaluate",
+      description: "Testing model accuracy, application performance, and user experience."
+    },
+    {
+      step: "05",
+      title: "Deploy",
+      description: "Shipping the final product to production and monitoring real-world usage."
+    }
+  ],
+  quote: {
+    text: "I am an AI & Data Science undergraduate with a deep passion for software engineering. I enjoy building seamless, user-centric applications powered by cutting-edge AI.",
+    author: "Vimlesh Tiwari",
+    signatureName: "V. Tiwari"
+  },
+  contact: {
+    email: "vimleshtiwari2005@gmail.com",
+    linkedin: "vimleshtiwari2005",
+    github: "8vimlesh",
+    location: "Global Remote"
+  },
+
+  // --- Original Full Content Backups (for your reference) ---
+  original_about: {
     title: "About Me",
     description: [
       "I am an AI & Data Science undergraduate with a deep passion for software engineering.",
@@ -13,7 +133,7 @@ export const portfolioData = {
       "As a continuous learner, I actively integrate AI-assisted development workflows to deliver production-ready code with maximum efficiency.",
     ],
   },
-  skills: {
+  original_skills: {
     programming: ["Python", "JavaScript", "TypeScript", "C", "SQL"],
     frontend: ["React", "HTML", "CSS", "Tailwind CSS", "Framer Motion"],
     backend: ["Flask", "REST APIs", "Node.js"],
@@ -27,177 +147,5 @@ export const portfolioData = {
       "Operating Systems",
       "Computer Networks",
     ],
-  },
-  projects: [
-    {
-      id: "haircraft",
-      title: "HairCraft – AI-Powered Salon Management Platform",
-      category: "Software Development",
-      description: "A full-stack salon management platform featuring secure authentication, appointment scheduling, and service management.",
-      features: [
-        "Engineered a full-stack salon management platform featuring secure authentication, appointment scheduling, and service management.",
-        "Designed a premium, responsive user interface with smooth animations and real-time data synchronization.",
-        "Optimized application performance and enhanced user experience through AI-assisted development and modern UI practices."
-      ],
-      technologies: ["React.js", "Firebase", "JavaScript", "HTML", "CSS"],
-      githubUrl: "https://github.com/vimlesh/haircraft",
-      liveUrl: "https://haircraft-app.web.app",
-      image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=1974&auto=format&fit=crop",
-      challenges: "Managing real-time state synchronization across different user roles effectively.",
-      learnings: "Deepened understanding of Firebase Firestore rules and React context for state management.",
-    },
-    {
-      id: "smartcart-ai",
-      title: "SmartCart AI – Intelligent Price Tracking System",
-      category: "Software Development",
-      description: "An AI-powered application that tracks product prices and notifies users when target prices are reached.",
-      features: [
-        "Developed an AI-powered application that tracks product prices and notifies users when target prices are reached.",
-        "Designed RESTful APIs and integrated MongoDB for scalable data storage and efficient product monitoring.",
-        "Built a responsive dashboard enabling users to manage tracked products and receive automated alerts."
-      ],
-      technologies: ["React.js", "Python", "Flask", "MongoDB"],
-      githubUrl: "https://github.com/vimlesh/smartcart-ai",
-      liveUrl: "#",
-      image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=2070&auto=format&fit=crop",
-      challenges: "Designing a robust scraping engine capable of adapting to varying e-commerce DOM structures and rate limits.",
-      learnings: "Gained expertise in asynchronous task scheduling and building scalable RESTful APIs with Flask.",
-    },
-    {
-      id: "expense-tracker",
-      title: "Expense Tracker",
-      category: "Software Development",
-      description: "A personal finance management application for tracking income, expenses, and spending patterns.",
-      features: [
-        "Built a personal finance management application for tracking income, expenses, and spending patterns.",
-        "Implemented secure authentication and real-time cloud data synchronization using Firebase.",
-        "Developed an intuitive dashboard to simplify financial management and improve user experience."
-      ],
-      technologies: ["React.js", "Firebase", "JavaScript"],
-      githubUrl: "https://github.com/vimlesh/expense-tracker",
-      liveUrl: "#",
-      image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format&fit=crop",
-      challenges: "Designing an intuitive mobile-first UI for quick expense entry.",
-      learnings: "Enhanced UI/UX design skills and responsive layout implementation.",
-    },
-    {
-      id: "workplace-safety",
-      title: "AI-Based Workplace Safety Monitoring",
-      category: "Machine Learning",
-      description: "A real-time computer vision system to detect PPE compliance, including helmets and safety vests, from live video streams.",
-      features: [
-        "Developed a real-time computer vision system to detect PPE compliance, including helmets and safety vests, from live video streams.",
-        "Implemented object detection models to identify safety violations and support workplace compliance.",
-        "Optimized the detection pipeline for accurate, low-latency monitoring in industrial environments."
-      ],
-      technologies: ["Python", "OpenCV", "YOLO", "TensorFlow"],
-      githubUrl: "https://github.com/vimlesh/safety-monitoring",
-      liveUrl: "#",
-      image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070&auto=format&fit=crop",
-      challenges: "Handling varying lighting conditions in industrial environments.",
-      learnings: "Improved dataset augmentation strategies and robust model evaluation.",
-    },
-    {
-      id: "traffic-dashboard",
-      title: "Traffic Accident Analysis Dashboard",
-      category: "Data Analytics",
-      description: "An interactive dashboard visualizing traffic accident trends and identifying high-risk zones.",
-      features: [
-        "Performed data cleaning, exploratory data analysis, and visualization on traffic accident datasets.",
-        "Identified accident patterns, high-risk locations, and key contributing factors through statistical analysis.",
-        "Designed interactive dashboards to support data-driven decision-making and actionable insights."
-      ],
-      technologies: ["Python", "Pandas", "NumPy", "Matplotlib", "Power BI"],
-      githubUrl: "https://github.com/vimlesh/traffic-analysis",
-      liveUrl: "#",
-      image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=2070&auto=format&fit=crop",
-      challenges: "Cleaning and merging large, disparate government datasets.",
-      learnings: "Advanced data wrangling techniques and spatial data visualization.",
-    },
-    {
-      id: "sales-dashboard",
-      title: "Sales Performance Dashboard",
-      category: "Data Analytics",
-      description: "Analyzed 10,000+ sales records to uncover revenue trends and regional performance gaps.",
-      features: [
-        "Analyzed 10,000+ sales records to uncover revenue trends and regional performance gaps.",
-        "Developed interactive state-wise sales dashboard with slicers and dynamic filtering.",
-        "Created calculated measures using DAX for KPI tracking (Revenue, Profit, Growth %).",
-        "Performed data modeling to optimize report performance.",
-        "Enabled data-driven decision-making through visual storytelling."
-      ],
-      technologies: ["Power BI", "DAX"],
-      githubUrl: "#",
-      liveUrl: "#",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
-      challenges: "Optimizing data models for fast filtering across multiple dimensions.",
-      learnings: "Mastered advanced DAX functions for dynamic KPI calculations.",
-    },
-    {
-      id: "hr-analytics-dashboard",
-      title: "HR Analytics Dashboard",
-      category: "Data Analytics",
-      description: "Analyzed employee attrition, performance, and department trends.",
-      features: [
-        "Analyzed employee attrition, performance, and department trends.",
-        "Built optimized data model with calculated columns and measures.",
-        "Identified key attrition drivers through visualization insights.",
-        "Designed executive-level summary dashboard for management reporting."
-      ],
-      technologies: ["Power BI", "DAX"],
-      githubUrl: "#",
-      liveUrl: "#",
-      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop",
-      challenges: "Identifying hidden correlations between diverse employee attributes.",
-      learnings: "Enhanced ability to translate raw HR data into actionable retention strategies.",
-    },
-    {
-      id: "deloitte-simulation",
-      title: "Deloitte Data Analytics Simulation",
-      category: "Data Analytics",
-      description: "Completed real-world business case analysis to generate insight-backed recommendations.",
-      features: [
-        "Completed real-world business case analysis.",
-        "Conducted data cleaning, transformation, and structured analysis.",
-        "Generated insight-backed recommendations for business improvement.",
-        "Presented findings in clear, executive-friendly format."
-      ],
-      technologies: ["Excel", "Data Interpretation"],
-      githubUrl: "#",
-      liveUrl: "#",
-      image: "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=2070&auto=format&fit=crop",
-      challenges: "Distilling complex data transformations into executive-friendly presentations.",
-      learnings: "Developed strong business acumen and professional data interpretation skills.",
-    }
-  ],
-  experience: [] as Array<{ id: string | number; title: string; company: string; date: string; description: string }>,
-  certifications: [
-    {
-      id: 1,
-      title: "Deloitte Data Analytics Virtual Internship",
-      issuer: "Forage",
-      date: "2025",
-      description: "Completed real-world business data case simulation and analytical reporting",
-    },
-    {
-      id: 2,
-      title: "Power BI Certification",
-      issuer: "SAGE Winter school",
-      date: "2025",
-      description: "Trained in data transformation, KPI development, and business intelligence reporting.",
-    },
-    {
-      id: 3,
-      title: "Tata Group – Data Visualization Virtual Experience",
-      issuer: "Forage",
-      date: "2025",
-      description: "Completed industry-based simulation focused on data storytelling and business insight generation.",
-    },
-  ],
-  achievements: [] as Array<{ id: string | number; title: string; description: string; date: string }>,
-  socials: {
-    github: "https://github.com/8vimlesh",
-    linkedin: "https://www.linkedin.com/in/vimleshtiwari2005/",
-    email: "vimleshtiwari2005@gmail.com",
   },
 };
