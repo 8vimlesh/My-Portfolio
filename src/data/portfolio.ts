@@ -21,6 +21,7 @@ export const portfolioData = {
       category: "Fullstack Platform",
       image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=1974&auto=format&fit=crop",
       link: "https://github.com/vimlesh/haircraft",
+      liveLink: "https://hair-craft.vercel.app/",
       techStack: ["React.js", "Vite", "Firebase", "Firestore", "Framer Motion"],
       brief: "HairCraft is a premium salon management platform that enables customers to discover salons, book appointments, select preferred stylists, and make secure online payments. It also provides salon owners with tools to manage appointments, staff, and customer records through an intuitive dashboard.",
       keyFeatures: [
@@ -45,6 +46,7 @@ export const portfolioData = {
       category: "AI/ML Development",
       image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=2070&auto=format&fit=crop",
       link: "https://github.com/vimlesh/smartcart-ai",
+      liveLink: "https://smartcartai-xi.vercel.app/",
       techStack: ["React.js", "Vite", "Python", "Flask", "MongoDB Atlas", "Web Scraping"],
       brief: "SmartCart.AI is an intelligent shopping assistant that allows users to track product prices across e-commerce platforms. Users can set a target price, and the system continuously monitors product prices and automatically notifies them via email when the desired price is reached. It helps users make cost-effective purchasing decisions.",
       keyFeatures: [
