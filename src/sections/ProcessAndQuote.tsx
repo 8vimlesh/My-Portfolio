@@ -20,7 +20,7 @@ export const ProcessAndQuote = () => {
         >
           <div className="mb-12">
             <h3 className="text-primary font-bold text-sm tracking-widest uppercase mb-8 border-b border-border pb-4">
-              Education
+              Certifications
             </h3>
             <div className="space-y-8">
               {education.map((item, i) => (
@@ -34,17 +34,26 @@ export const ProcessAndQuote = () => {
           </div>
 
           <div>
-            <h3 className="text-primary font-bold text-sm tracking-widest uppercase mb-8 border-b border-border pb-4">
+            <h3 className="text-primary font-bold text-sm tracking-widest uppercase mb-6 border-b border-border pb-4">
               Skills & Stack
             </h3>
-            <div className="flex flex-wrap gap-3">
-              {skills.map((skill, i) => (
-                <span 
-                  key={i} 
-                  className="px-4 py-2 rounded-full border border-border bg-secondary text-sm font-medium tracking-wide"
-                >
-                  {skill}
-                </span>
+            <div className="flex flex-col gap-6">
+              {skills.map((skillGroup, idx) => (
+                <div key={idx}>
+                  <h4 className="text-muted-foreground text-[10px] sm:text-xs uppercase tracking-widest font-bold mb-3">
+                    {skillGroup.category}
+                  </h4>
+                  <div className="flex flex-wrap gap-2">
+                    {skillGroup.items.map((skill, i) => (
+                      <span 
+                        key={i} 
+                        className="px-3 py-1.5 rounded-full border border-border bg-secondary text-[10px] sm:text-xs font-medium tracking-wide"
+                      >
+                        {skill}
+                      </span>
+                    ))}
+                  </div>
+                </div>
               ))}
             </div>
           </div>

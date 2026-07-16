@@ -173,8 +173,26 @@ export const portfolioData = {
     }
   ],
   skills: [
-    "Python", "JavaScript", "TypeScript", "React", "Node.js", "Flask", 
-    "OpenCV", "YOLO", "TensorFlow", "Pandas", "Power BI", "MongoDB", "SQL"
+    {
+      category: "AI & Data Science",
+      items: ["AI-Assisted Software Development", "Machine Learning", "Prompt Engineering", "Computer Vision", "Data Analytics"]
+    },
+    {
+      category: "Web Development",
+      items: ["Full-Stack Web Development", "React.js", "REST API Development"]
+    },
+    {
+      category: "Backend & DB",
+      items: ["Python", "Firebase", "MongoDB"]
+    },
+    {
+      category: "BI & Design",
+      items: ["Power BI", "Dashboard Development", "UI/UX Design"]
+    },
+    {
+      category: "Core Skills",
+      items: ["Problem Solving"]
+    }
   ],
   process: [
     {
