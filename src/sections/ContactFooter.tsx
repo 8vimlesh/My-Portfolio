@@ -27,7 +27,7 @@ export const ContactFooter = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="font-display text-5xl md:text-6xl uppercase tracking-tighter mb-6">
+          <h2 className="font-display text-4xl sm:text-5xl md:text-6xl uppercase tracking-tighter mb-6">
             Let's Work<br />Together
           </h2>
           <p className="text-muted-foreground mb-10 max-w-sm">
@@ -91,11 +91,11 @@ export const ContactFooter = () => {
       </div>
 
       {/* Bottom Copyright/Footer Footer */}
-      <div className="container mx-auto px-6 md:px-12 lg:px-24 max-w-[1300px] border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4 relative z-10">
-        <p className="text-muted-foreground text-sm uppercase tracking-widest font-bold">
+      <div className="container mx-auto px-6 md:px-12 lg:px-24 max-w-[1300px] border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-4 relative z-10">
+        <p className="text-muted-foreground text-xs sm:text-sm uppercase tracking-widest font-bold">
           © {new Date().getFullYear()} Vimlesh Tiwari
         </p>
-        <div className="flex gap-6 text-sm uppercase tracking-widest font-bold text-muted-foreground">
+        <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-xs sm:text-sm uppercase tracking-widest font-bold text-muted-foreground">
           {contact.linkedin && (
             <a 
               href={`https://linkedin.com/in/${contact.linkedin}`} 
@@ -123,7 +123,7 @@ export const ContactFooter = () => {
 
       {/* Giant Background Text for Footer (Subtle) */}
       <div className="absolute bottom-0 left-0 w-full overflow-hidden flex justify-center pointer-events-none z-0 opacity-5">
-        <h2 className="font-display text-[20vw] leading-none whitespace-nowrap text-white translate-y-1/4">
+        <h2 className="font-display text-[25vw] md:text-[20vw] leading-none whitespace-nowrap text-white translate-y-1/4">
           VIMLESH
         </h2>
       </div>

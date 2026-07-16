@@ -21,7 +21,7 @@ export const SelectedProjects = () => {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
         <motion.h2 
-          className="font-display text-4xl md:text-5xl uppercase"
+          className="font-display text-3xl sm:text-4xl md:text-5xl uppercase"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -107,7 +107,7 @@ export const SelectedProjects = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 100, scale: 0.95 }}
               transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed inset-x-4 md:inset-x-auto top-1/2 -translate-y-1/2 md:left-1/2 md:-translate-x-1/2 z-[101] w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-2xl bg-secondary border border-border shadow-2xl flex flex-col md:flex-row"
+              className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[101] w-[calc(100%-2rem)] md:w-full max-w-6xl max-h-[95vh] overflow-y-auto rounded-2xl bg-secondary border border-border shadow-2xl flex flex-col md:flex-row"
             >
               {/* Close Button */}
               <button 
@@ -118,7 +118,7 @@ export const SelectedProjects = () => {
               </button>
 
               {/* Modal Image */}
-              <div className="w-full md:w-1/2 h-[300px] md:h-auto md:min-h-[500px] relative overflow-hidden">
+              <div className="w-full md:w-5/12 h-[200px] sm:h-[250px] md:h-auto relative overflow-hidden">
                 <img 
                   src={selectedProject.image} 
                   alt={selectedProject.title}
@@ -129,38 +129,75 @@ export const SelectedProjects = () => {
               </div>
 
               {/* Modal Details */}
-              <div className="w-full md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
-                <span className="text-primary font-display text-2xl mb-2">{selectedProject.id}</span>
-                <h3 className="font-display text-4xl md:text-5xl uppercase tracking-tighter mb-4">{selectedProject.title}</h3>
+              <div className="w-full md:w-7/12 p-6 md:p-8 flex flex-col justify-center">
+                <span className="text-primary font-display text-xl sm:text-2xl mb-1">{selectedProject.id}</span>
+                <h3 className="font-display text-3xl sm:text-4xl md:text-5xl uppercase tracking-tighter mb-3">{selectedProject.title}</h3>
                 
-                <div className="inline-block bg-primary/10 border border-primary/20 px-3 py-1 rounded-full mb-6 w-fit">
-                  <p className="text-primary font-bold text-xs tracking-widest uppercase">
+                <div className="inline-block bg-primary/10 border border-primary/20 px-3 py-1 rounded-full mb-4 w-fit">
+                  <p className="text-primary font-bold text-[10px] sm:text-xs tracking-widest uppercase">
                     {selectedProject.category}
                   </p>
                 </div>
 
                 {/* Tech Stack */}
                 {selectedProject.techStack && (
-                  <div className="flex flex-wrap gap-2 mb-8">
+                  <div className="flex flex-wrap gap-1.5 mb-4">
                     {selectedProject.techStack.map((tech: string, i: number) => (
-                      <span key={i} className="text-xs font-semibold tracking-wider uppercase bg-white/5 border border-white/10 px-3 py-1 rounded-md text-muted-foreground">
+                      <span key={i} className="text-[10px] sm:text-xs font-semibold tracking-wider uppercase bg-white/5 border border-white/10 px-2 py-0.5 rounded-md text-muted-foreground">
                         {tech}
                       </span>
                     ))}
                   </div>
                 )}
 
-                <p className="text-muted-foreground text-lg mb-10 leading-relaxed">
-                  This is a featured project spanning modern web technologies, beautiful editorial design, and robust engineering. We focused heavily on the user experience and performance to deliver exceptional value.
-                </p>
+                {/* Project Brief */}
+                {(selectedProject as any).brief ? (
+                  <p className="text-muted-foreground text-xs sm:text-sm mb-4 leading-relaxed">
+                    {(selectedProject as any).brief}
+                  </p>
+                ) : (
+                  <p className="text-muted-foreground text-xs sm:text-sm mb-4 leading-relaxed">
+                    This is a featured project spanning modern web technologies, beautiful editorial design, and robust engineering. We focused heavily on the user experience and performance to deliver exceptional value.
+                  </p>
+                )}
+
+                {/* Key Features */}
+                {(selectedProject as any).keyFeatures && (
+                  <div className="mb-4">
+                    <h4 className="text-white font-bold text-[10px] sm:text-xs tracking-widest uppercase mb-2">Key Features</h4>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-2 text-muted-foreground text-xs sm:text-sm">
+                      {(selectedProject as any).keyFeatures.map((feature: string, i: number) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <span className="text-primary mt-0.5">•</span>
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+
+                {/* What I Learned */}
+                {(selectedProject as any).learned && (
+                  <div className="mb-6">
+                    <h4 className="text-white font-bold text-[10px] sm:text-xs tracking-widest uppercase mb-2">What I Learned</h4>
+                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-2 text-muted-foreground text-xs sm:text-sm">
+                      {(selectedProject as any).learned.map((item: string, i: number) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <span className="text-primary mt-0.5">•</span>
+                          <span>{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
 
                 <a 
                   href={selectedProject.link}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-3 bg-white text-black px-6 py-4 rounded-full font-bold uppercase tracking-widest text-sm hover:bg-primary hover:text-white transition-colors duration-300 w-fit"
+                  className="flex items-center gap-2 bg-white text-black px-5 py-3 rounded-full font-bold uppercase tracking-widest text-[10px] sm:text-xs hover:bg-primary hover:text-white transition-colors duration-300 w-fit"
                 >
-                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
                   View on GitHub
                 </a>
               </div>

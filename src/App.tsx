@@ -16,7 +16,7 @@ function App() {
   });
 
   return (
-    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30 font-sans">
+    <div className="min-h-screen bg-background text-foreground selection:bg-primary/30 font-sans overflow-x-hidden w-full relative">
       <CustomCursor />
       
       {/* Scroll Progress Bar */}

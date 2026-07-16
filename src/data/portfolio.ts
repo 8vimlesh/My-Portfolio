@@ -21,47 +21,138 @@ export const portfolioData = {
       category: "Fullstack Platform",
       image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=1974&auto=format&fit=crop",
       link: "https://github.com/vimlesh/haircraft",
-      techStack: ["React", "Node.js", "MongoDB", "Tailwind CSS"]
+      techStack: ["React.js", "Vite", "Firebase", "Firestore", "Framer Motion"],
+      brief: "HairCraft is a premium salon management platform that enables customers to discover salons, book appointments, select preferred stylists, and make secure online payments. It also provides salon owners with tools to manage appointments, staff, and customer records through an intuitive dashboard.",
+      keyFeatures: [
+        "Online appointment booking",
+        "Stylist selection",
+        "Secure login",
+        "Customer dashboard",
+        "Salon management panel",
+        "Premium UI animations"
+      ],
+      learned: [
+        "Authentication",
+        "Cloud database management",
+        "Real-time data synchronization",
+        "Modern UI/UX design",
+        "User role management"
+      ]
     },
     {
       id: "02",
-      title: "SmartCart AI",
+      title: "SmartCart.AI",
       category: "AI/ML Development",
       image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=2070&auto=format&fit=crop",
       link: "https://github.com/vimlesh/smartcart-ai",
-      techStack: ["Python", "TensorFlow", "FastAPI", "React"]
+      techStack: ["React.js", "Vite", "Python", "Flask", "MongoDB Atlas", "Web Scraping"],
+      brief: "SmartCart.AI is an intelligent shopping assistant that allows users to track product prices across e-commerce platforms. Users can set a target price, and the system continuously monitors product prices and automatically notifies them via email when the desired price is reached. It helps users make cost-effective purchasing decisions.",
+      keyFeatures: [
+        "Product price tracking",
+        "Target price alerts",
+        "Automated email notifications",
+        "Responsive UI",
+        "Real-time price monitoring"
+      ],
+      learned: [
+        "REST API development",
+        "Database integration",
+        "Automation & scheduling",
+        "Frontend-backend communication",
+        "Deployment on cloud platforms"
+      ]
     },
     {
       id: "03",
-      title: "Workplace Safety",
+      title: "Safety Check",
       category: "Computer Vision",
       image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070&auto=format&fit=crop",
       link: "https://github.com/vimlesh/safety-monitoring",
-      techStack: ["OpenCV", "PyTorch", "Docker", "AWS"]
+      techStack: ["Python", "YOLOv8", "PyTorch", "OpenCV", "FastAPI", "React.js", "MySQL"],
+      brief: "Safety Check is an AI-powered surveillance system that monitors workers in real time using CCTV cameras or webcams to ensure compliance with workplace safety regulations. The system detects whether workers are wearing the required Personal Protective Equipment (PPE)—such as helmets, safety vests, gloves, masks, goggles, and safety shoes—and instantly raises alerts whenever a violation is detected. It also logs incidents and provides analytics to improve workplace safety.",
+      keyFeatures: [
+        "Real-time PPE detection",
+        "Automated violation alerts",
+        "Incident logging & analytics",
+        "CCTV & webcam integration"
+      ],
+      learned: [
+        "Object detection with YOLOv8",
+        "Transfer learning",
+        "Computer vision pipelines",
+        "Real-time video processing"
+      ]
     },
     {
       id: "04",
-      title: "Traffic Analysis",
-      category: "Data Analytics",
+      title: "Traffic Accident Analysis",
+      category: "Data Analytics & Visualization",
       image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=2070&auto=format&fit=crop",
       link: "https://github.com/vimlesh/traffic-analysis",
-      techStack: ["Pandas", "Scikit-Learn", "Jupyter", "Matplotlib"]
+      techStack: ["Python", "Pandas", "NumPy", "Matplotlib", "Power BI"],
+      brief: "Analyzed traffic accident data to identify patterns, accident hotspots, and contributing factors. Built interactive dashboards to help derive actionable insights for improving road safety and decision-making.",
+      keyFeatures: [
+        "Data cleaning",
+        "Exploratory Data Analysis (EDA)",
+        "Trend analysis",
+        "Interactive dashboards",
+        "Insight generation"
+      ],
+      learned: [
+        "Data preprocessing",
+        "Data visualization",
+        "Statistical analysis",
+        "Dashboard creation",
+        "Business insight generation"
+      ]
     },
     {
       id: "05",
       title: "Expense Tracker",
-      category: "Software Development",
+      category: "Personal Finance App",
       image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format&fit=crop",
       link: "https://github.com/vimlesh/expense-tracker",
-      techStack: ["React Native", "Firebase", "TypeScript"]
+      techStack: ["React.js", "Vite", "Firebase", "Firestore", "Chart.js"],
+      brief: "Expense Tracker is a full-stack web application that helps users manage their daily income and expenses in one place. Users can securely log in, record transactions, categorize expenses, monitor their financial activities through an interactive dashboard, and gain insights into their spending habits to make better financial decisions.",
+      keyFeatures: [
+        "Secure user authentication",
+        "Add, edit, and delete records",
+        "Expense categorization",
+        "Dashboard with spending insights",
+        "Interactive charts and graphs",
+        "Real-time database synchronization"
+      ],
+      learned: [
+        "Full-stack web development",
+        "Firebase Authentication",
+        "Firestore database integration",
+        "CRUD operations",
+        "State management in React",
+        "Data visualization"
+      ]
     },
     {
       id: "06",
-      title: "Sales Dashboard",
+      title: "Sales Tracker Dashboard",
       category: "Business Intelligence",
       image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
       link: "#",
-      techStack: ["Tableau", "SQL", "Excel", "Data Studio"]
+      techStack: ["Power BI", "Power Query", "DAX", "Excel"],
+      brief: "Designed an interactive sales analytics dashboard to monitor business performance across products, regions, customers, and time periods. The dashboard enables stakeholders to track key performance indicators, identify sales trends, evaluate profitability, and support data-driven business decisions.",
+      keyFeatures: [
+        "Sales, Profit & Orders KPIs",
+        "Sales Trend Analysis",
+        "Region & Product Analysis",
+        "Customer-wise Sales Tracking",
+        "Interactive Slicers & Filters"
+      ],
+      learned: [
+        "Data Modeling (Star Schema)",
+        "DAX Measures",
+        "KPI Dashboard Design",
+        "Interactive Reporting",
+        "Business Intelligence"
+      ]
     }
   ],
   education: [

@@ -95,14 +95,14 @@ export const ProcessAndQuote = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.4 }}
         >
-          <div className="bg-primary rounded-3xl p-10 h-full flex flex-col justify-between relative overflow-hidden group">
+          <div className="bg-primary rounded-3xl p-6 sm:p-10 h-full flex flex-col justify-between relative overflow-hidden group">
             {/* Background Texture/Noise for the card */}
             <div className="absolute inset-0 bg-black/10 mix-blend-overlay pointer-events-none" />
             
             <Quote className="w-16 h-16 text-white/20 mb-8 relative z-10" />
             
             <div className="relative z-10 mb-12">
-              <p className="text-2xl md:text-3xl font-bold italic text-white leading-snug mb-8">
+              <p className="text-xl sm:text-2xl md:text-3xl font-bold italic text-white leading-snug mb-8">
                 "{quote.text}"
               </p>
               
@@ -115,10 +115,10 @@ export const ProcessAndQuote = () => {
             </div>
 
             <div className="relative z-10 pt-8 border-t border-white/20 mt-auto flex items-center justify-between">
-              <span className="text-white font-bold text-xs tracking-widest uppercase">
+              <span className="text-white font-bold text-[10px] sm:text-xs tracking-widest uppercase">
                 Let's Create Together
               </span>
-              <Sparkles className="w-5 h-5 text-white" />
+              <Sparkles className="w-5 h-5 text-white shrink-0 ml-2" />
             </div>
           </div>
         </motion.div>

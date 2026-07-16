@@ -17,7 +17,7 @@ export const Hero = () => {
     <section className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-12 perspective-[1200px]">
       {/* Giant Background Text */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex justify-center pointer-events-none z-0 select-none">
-        <h1 className="font-display text-[15vw] leading-none whitespace-nowrap text-gradient-red opacity-20 transform -translate-y-10">
+        <h1 className="font-display text-[25vw] md:text-[15vw] leading-none whitespace-nowrap text-gradient-red opacity-20 transform -translate-y-10">
           {hero.title}
         </h1>
       </div>
@@ -33,11 +33,11 @@ export const Hero = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            <p className="font-script text-3xl md:text-5xl text-foreground mb-4">
+            <p className="font-script text-3xl md:text-5xl text-foreground mb-2 sm:mb-4">
               {hero.greeting}
             </p>
             
-            <h2 className="font-display text-6xl md:text-8xl lg:text-[7rem] leading-[0.85] tracking-tighter text-foreground mb-6 uppercase">
+            <h2 className="font-display text-[13vw] sm:text-6xl md:text-8xl lg:text-[7rem] leading-[0.85] tracking-tighter text-foreground mb-4 sm:mb-6 uppercase">
               {hero.name.split('\n').map((line, i) => (
                 <React.Fragment key={i}>
                   {line}
@@ -52,7 +52,7 @@ export const Hero = () => {
               </p>
             </div>
 
-            <p className="text-muted-foreground text-lg md:text-xl max-w-md leading-relaxed mb-8">
+            <p className="text-muted-foreground text-base sm:text-lg md:text-xl w-full max-w-md leading-relaxed mb-8">
               {hero.description}
             </p>
 
@@ -64,7 +64,7 @@ export const Hero = () => {
         </div>
 
         {/* Right Content - Photo & Stats */}
-        <div className="flex-1 relative w-full h-[60vh] lg:h-[80vh] min-h-[500px]" style={{ perspective: 1200 }}>
+        <div className="flex-1 relative w-full h-[50vh] sm:h-[60vh] lg:h-[80vh] min-h-[400px] sm:min-h-[500px]" style={{ perspective: 1200 }}>
           <motion.div 
             className="absolute inset-0 overflow-visible origin-bottom"
             initial={{ opacity: 0, scale: 0.95 }}
@@ -89,13 +89,13 @@ export const Hero = () => {
 
           {/* Floating Tagline Card */}
           <motion.div 
-            className="absolute bottom-4 lg:bottom-12 left-0 lg:-left-20 xl:-left-32 z-20 glass-card p-6 rounded-2xl flex items-start gap-4 max-w-xs shadow-2xl"
+            className="absolute bottom-4 lg:bottom-12 left-0 lg:-left-20 xl:-left-32 z-20 glass-card p-4 sm:p-6 rounded-2xl flex items-center gap-3 sm:gap-4 w-max shadow-2xl"
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <Sparkles className="w-6 h-6 text-primary shrink-0 mt-1" />
-            <p className="font-bold text-sm tracking-widest uppercase">
+            <Sparkles className="w-6 h-6 text-primary shrink-0" />
+            <p className="font-bold text-sm tracking-widest uppercase whitespace-nowrap">
               {hero.tagline}
             </p>
           </motion.div>
