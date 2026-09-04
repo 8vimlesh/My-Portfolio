@@ -17,9 +17,79 @@ export const portfolioData = {
   projects: [
     {
       id: "01",
+      title: "WhatsApp Communication & CRM Platform",
+      category: "Fullstack & Automation CRM",
+      image: "https://images.unsplash.com/photo-1611746872915-64382b5c76da?q=80&w=2070&auto=format&fit=crop",
+      link: "https://github.com/8vimlesh/whatsapp-crm",
+      techStack: [
+        "React",
+        "TypeScript",
+        "Supabase",
+        "PostgreSQL",
+        "Meta WhatsApp Cloud API",
+        "n8n",
+        "Vercel"
+      ],
+      brief: "Built a full-stack WhatsApp CRM platform for managing parent communication, inquiries, contacts, campaigns, and automated follow-ups from a centralized dashboard.",
+      keyFeatures: [
+        "WhatsApp Inbox — manage incoming and outgoing parent conversations",
+        "Inquiry Kanban — New Inquiry → Contacted → Interested → Admitted",
+        "Contact Management — search, CSV import, student/class mapping, opt-out",
+        "Message Templates — reusable WhatsApp templates with approval status",
+        "Campaigns — bulk messaging to selected parent groups",
+        "Automation Engine — trigger-based follow-ups and notifications",
+        "Media Library — manage images, videos, documents and audio",
+        "Analytics Dashboard — messages, contacts, campaigns and activity trends",
+        "Meta WhatsApp Cloud API — actual WhatsApp sending/receiving",
+        "n8n Integration — workflow automation and webhook-based processing",
+        "Supabase + PostgreSQL — persistent backend, authentication and RLS"
+      ],
+      learned: [
+        "Meta WhatsApp Cloud API Integration & Webhook Handling",
+        "n8n Workflow Automation & Event-driven Processing",
+        "Supabase Auth, Database Architecture & PostgreSQL Row Level Security (RLS)",
+        "Real-time Chat State Management & Pipeline Optimization",
+        "Campaign Scheduling & Bulk Broadcast Handling"
+      ]
+    },
+    {
+      id: "02",
+      title: "Le-RAG — AI Legal Research Assistant",
+      category: "Generative AI & RAG",
+      image: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?q=80&w=2070&auto=format&fit=crop",
+      link: "https://github.com/8vimlesh/le-rag",
+      techStack: [
+        "Python",
+        "NLP",
+        "RAG",
+        "LLM API",
+        "Vector Search",
+        "Prompt Engineering",
+        "JSON APIs"
+      ],
+      brief: "An AI-powered legal research assistant that uses Retrieval-Augmented Generation (RAG) to retrieve relevant legal context and generate accurate, context-aware responses to natural-language legal queries.",
+      keyFeatures: [
+        "Semantic Document Retrieval — finds relevant legal information for queries",
+        "End-to-End RAG Pipeline — combines vector retrieval with LLM-based response generation",
+        "NLP Query Processing — identifies user intent and parses legal queries",
+        "LLM Integration — generates contextual answers using retrieved information",
+        "Prompt Engineering — optimized prompts for consistent, highly relevant responses",
+        "Structured JSON Responses — cleanly connects the AI pipeline to applications",
+        "AI Evaluation — achieved 80–85% contextual relevance across benchmarked legal queries"
+      ],
+      learned: [
+        "RAG Architecture & Vector Indexing",
+        "Context-Aware Prompt Engineering & Guardrails",
+        "Legal Domain NLP & Query Understanding",
+        "AI Output Evaluation & Benchmarking (80–85% Relevance)",
+        "Structured JSON Output Generation with LLMs"
+      ]
+    },
+    {
+      id: "03",
       title: "HairCraft",
       category: "Fullstack Platform",
-      image: "https://images.unsplash.com/photo-1560066984-138dadb4c035?q=80&w=1974&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop",
       link: "https://github.com/vimlesh/haircraft",
       liveLink: "https://hair-craft.vercel.app/",
       techStack: ["React.js", "Vite", "Firebase", "Firestore", "Framer Motion"],
@@ -41,10 +111,10 @@ export const portfolioData = {
       ]
     },
     {
-      id: "02",
+      id: "04",
       title: "SmartCart.AI",
       category: "AI/ML Development",
-      image: "https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=2070&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?q=80&w=2070&auto=format&fit=crop",
       link: "https://github.com/vimlesh/smartcart-ai",
       liveLink: "https://smartcartai-xi.vercel.app/",
       techStack: ["React.js", "Vite", "Python", "Flask", "MongoDB Atlas", "Web Scraping"],
@@ -65,10 +135,10 @@ export const portfolioData = {
       ]
     },
     {
-      id: "03",
+      id: "05",
       title: "Safety Check",
       category: "Computer Vision",
-      image: "https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?q=80&w=2070&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?q=80&w=2070&auto=format&fit=crop",
       link: "https://github.com/vimlesh/safety-monitoring",
       techStack: ["Python", "YOLOv8", "PyTorch", "OpenCV", "FastAPI", "React.js", "MySQL"],
       brief: "Safety Check is an AI-powered surveillance system that monitors workers in real time using CCTV cameras or webcams to ensure compliance with workplace safety regulations. The system detects whether workers are wearing the required Personal Protective Equipment (PPE)—such as helmets, safety vests, gloves, masks, goggles, and safety shoes—and instantly raises alerts whenever a violation is detected. It also logs incidents and provides analytics to improve workplace safety.",
@@ -86,10 +156,10 @@ export const portfolioData = {
       ]
     },
     {
-      id: "04",
+      id: "06",
       title: "Traffic Accident Analysis",
       category: "Data Analytics & Visualization",
-      image: "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?q=80&w=2070&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?q=80&w=2070&auto=format&fit=crop",
       link: "https://github.com/vimlesh/traffic-analysis",
       techStack: ["Python", "Pandas", "NumPy", "Matplotlib", "Power BI"],
       brief: "Analyzed traffic accident data to identify patterns, accident hotspots, and contributing factors. Built interactive dashboards to help derive actionable insights for improving road safety and decision-making.",
@@ -109,7 +179,7 @@ export const portfolioData = {
       ]
     },
     {
-      id: "05",
+      id: "07",
       title: "Expense Tracker",
       category: "Personal Finance App",
       image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?q=80&w=2070&auto=format&fit=crop",
@@ -134,10 +204,10 @@ export const portfolioData = {
       ]
     },
     {
-      id: "06",
+      id: "08",
       title: "Sales Tracker Dashboard",
       category: "Business Intelligence",
-      image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop",
+      image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015&auto=format&fit=crop",
       link: "#",
       techStack: ["Power BI", "Power Query", "DAX", "Excel"],
       brief: "Designed an interactive sales analytics dashboard to monitor business performance across products, regions, customers, and time periods. The dashboard enables stakeholders to track key performance indicators, identify sales trends, evaluate profitability, and support data-driven business decisions.",
@@ -177,15 +247,15 @@ export const portfolioData = {
   skills: [
     {
       category: "AI & Data Science",
-      items: ["AI-Assisted Software Development", "Machine Learning", "Prompt Engineering", "Computer Vision", "Data Analytics"]
+      items: ["Generative AI & RAG", "NLP & LLM APIs", "Vector Search", "Prompt Engineering", "Machine Learning", "Computer Vision", "Data Analytics"]
     },
     {
       category: "Web Development",
-      items: ["Full-Stack Web Development", "React.js", "REST API Development"]
+      items: ["Full-Stack Web Development", "React.js", "TypeScript", "REST API Development"]
     },
     {
       category: "Backend & DB",
-      items: ["Python", "Firebase", "MongoDB"]
+      items: ["Python", "Supabase", "PostgreSQL", "Firebase", "MongoDB", "n8n"]
     },
     {
       category: "BI & Design",
@@ -193,7 +263,7 @@ export const portfolioData = {
     },
     {
       category: "Core Skills",
-      items: ["Problem Solving"]
+      items: ["Problem Solving", "System Architecture"]
     }
   ],
   process: [
@@ -247,10 +317,10 @@ export const portfolioData = {
   original_skills: {
     programming: ["Python", "JavaScript", "TypeScript", "C", "SQL"],
     frontend: ["React", "HTML", "CSS", "Tailwind CSS", "Framer Motion"],
-    backend: ["Flask", "REST APIs", "Node.js"],
-    databases: ["MongoDB", "Firebase", "MySQL"],
+    backend: ["Flask", "REST APIs", "Node.js", "n8n"],
+    databases: ["PostgreSQL", "Supabase", "MongoDB", "Firebase", "MySQL"],
     aiml: ["OpenCV", "YOLO", "TensorFlow", "Scikit-learn", "Pandas", "NumPy"],
-    tools: ["Git", "GitHub", "VS Code", "Postman", "Vercel"],
+    tools: ["Git", "GitHub", "VS Code", "Postman", "Vercel", "Meta WhatsApp Cloud API"],
     core: [
       "Data Structures & Algorithms",
       "Object-Oriented Programming",

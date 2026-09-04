@@ -17,25 +17,30 @@ export const SelectedProjects = () => {
   }, [selectedProject]);
 
   return (
-    <section className="py-24 md:py-32 px-6 md:px-12 lg:px-24 container mx-auto max-w-[1300px]">
+    <section id="projects" className="relative z-20 bg-[#0d0d0d] rounded-t-[36px] md:rounded-t-[56px] border-t border-white/10 shadow-[0_-30px_90px_rgba(0,0,0,0.95)] pt-16 md:pt-24 pb-28 px-6 md:px-12 lg:px-24 container mx-auto max-w-[1300px] mt-8">
+      {/* Editorial Curtain Grip Bar */}
+      <div className="w-12 h-1.5 bg-white/15 rounded-full mx-auto mb-12 hover:bg-primary/50 transition-colors" />
+
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
         <motion.h2 
-          className="font-display text-3xl sm:text-4xl md:text-5xl uppercase"
+          className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase tracking-tighter"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
         >
           Selected Projects
         </motion.h2>
         <motion.a 
-          href="#"
+          href="https://github.com/8vimlesh"
+          target="_blank"
+          rel="noreferrer"
           className="text-sm font-bold tracking-widest uppercase hover:text-primary transition-colors flex items-center gap-2 group cursor-pointer border-b border-transparent hover:border-primary pb-1"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.1 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
         >
           View All Projects
           <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
@@ -49,16 +54,16 @@ export const SelectedProjects = () => {
             key={project.id}
             onClick={() => setSelectedProject(project)}
             className="group cursor-pointer flex flex-col"
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 25 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.7, delay: index * 0.15 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.5, delay: (index % 3) * 0.08 }}
           >
             {/* Image Container */}
-            <div className="relative aspect-[4/5] overflow-hidden rounded-xl mb-6 bg-secondary border border-border">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl mb-6 bg-secondary border border-border group-hover:border-primary/50 transition-colors duration-300">
               {/* Overlay Text */}
               <div className="absolute inset-0 z-20 flex items-center justify-center p-6 bg-black/40 group-hover:bg-black/20 transition-colors duration-500">
-                <h3 className="font-display text-3xl md:text-4xl text-center uppercase tracking-tight text-white group-hover:text-primary transition-colors duration-500 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0">
+                <h3 className="font-display text-2xl sm:text-3xl md:text-4xl text-center uppercase tracking-tight text-white group-hover:text-primary transition-colors duration-500 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0">
                   {project.title}
                 </h3>
               </div>
@@ -66,7 +71,7 @@ export const SelectedProjects = () => {
               <img 
                 src={project.image} 
                 alt={project.title}
-                className="w-full h-full object-cover grayscale opacity-70 group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-700 ease-out"
+                className="w-full h-full object-cover grayscale opacity-75 group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 ease-out"
               />
             </div>
 
@@ -74,12 +79,12 @@ export const SelectedProjects = () => {
             <div className="flex items-start justify-between">
               <div className="flex flex-col">
                 <span className="text-primary font-display text-lg mb-1">{project.id}</span>
-                <h4 className="font-bold text-xl uppercase tracking-wider mb-1">{project.title}</h4>
+                <h4 className="font-bold text-xl uppercase tracking-wider mb-1 group-hover:text-primary transition-colors duration-300">{project.title}</h4>
                 <p className="text-muted-foreground text-sm uppercase tracking-widest">{project.category}</p>
               </div>
               
               {/* Arrow Reveal Button */}
-              <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-colors duration-300 overflow-hidden relative">
+              <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-colors duration-300 overflow-hidden relative shrink-0 ml-3">
                 <ArrowUpRight className="w-5 h-5 text-foreground group-hover:text-white absolute transition-transform duration-300 transform -translate-x-full translate-y-full group-hover:translate-x-0 group-hover:translate-y-0" />
                 <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-white absolute transition-transform duration-300 transform translate-x-0 translate-y-0 group-hover:translate-x-full group-hover:-translate-y-full" />
               </div>

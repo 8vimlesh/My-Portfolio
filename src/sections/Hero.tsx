@@ -7,14 +7,22 @@ export const Hero = () => {
   const { hero } = portfolioData;
   const { scrollY } = useScroll();
 
-  // 3D Parallax Scroll Effects for the Profile Image
-  const profileY = useTransform(scrollY, [0, 800], [0, 200]);
-  const profileRotateX = useTransform(scrollY, [0, 800], [0, 25]);
-  const profileScale = useTransform(scrollY, [0, 800], [1, 0.85]);
-  const profileOpacity = useTransform(scrollY, [0, 600], [1, 0.3]);
+  // Curtain Depth Parallax Effects for the Hero Section
+  const heroScale = useTransform(scrollY, [0, 600], [1, 0.94]);
+  const heroOpacity = useTransform(scrollY, [0, 550], [1, 0.45]);
+  const heroY = useTransform(scrollY, [0, 600], [0, 80]);
+
+  // Profile Image Parallax Effects
+  const profileY = useTransform(scrollY, [0, 800], [0, 150]);
+  const profileRotateX = useTransform(scrollY, [0, 800], [0, 15]);
+  const profileScale = useTransform(scrollY, [0, 800], [1, 0.9]);
+  const profileOpacity = useTransform(scrollY, [0, 600], [1, 0.5]);
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-12 perspective-[1200px]">
+    <motion.section 
+      style={{ scale: heroScale, opacity: heroOpacity, y: heroY }}
+      className="sticky top-0 min-h-screen flex items-center overflow-hidden pt-24 pb-16 z-10 origin-top"
+    >
       {/* Giant Background Text */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex justify-center pointer-events-none z-0 select-none">
         <h1 className="font-display text-[25vw] md:text-[15vw] leading-none whitespace-nowrap text-gradient-red opacity-20 transform -translate-y-10">
@@ -119,6 +127,6 @@ export const Hero = () => {
         </div>
 
       </div>
-    </section>
+    </motion.section>
   );
 };

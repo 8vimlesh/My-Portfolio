@@ -15,58 +15,77 @@ export const ContactFooter = () => {
     github: <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
   };
 
+  const getContactLink = (key: string, val: string) => {
+    if (key === 'email') return `mailto:${val}`;
+    if (key === 'linkedin') return `https://linkedin.com/in/${val}`;
+    if (key === 'github') return `https://github.com/${val}`;
+    return '#';
+  };
+
   return (
-    <footer id="contact" className="relative bg-secondary pt-24 pb-12 mt-24 border-t border-border overflow-hidden">
+    <footer id="contact" className="relative z-40 bg-[#121212] rounded-t-[36px] md:rounded-t-[56px] border-t border-primary/30 shadow-[0_-30px_90px_rgba(0,0,0,0.98)] pt-16 md:pt-24 pb-12 -mt-8 overflow-hidden">
+      {/* Editorial Curtain Grip Bar with Red Glow Accent */}
+      <div className="w-12 h-1.5 bg-primary/40 rounded-full mx-auto mb-12 hover:bg-primary transition-colors shadow-[0_0_10px_rgba(224,32,32,0.5)]" />
+
       <div className="container mx-auto px-6 md:px-12 lg:px-24 max-w-[1300px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 lg:gap-12 mb-20 relative z-10">
         
         {/* Left - CTA */}
         <motion.div 
           className="flex flex-col"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
         >
           <h2 className="font-display text-4xl sm:text-5xl md:text-6xl uppercase tracking-tighter mb-6">
             Let's Work<br />Together
           </h2>
-          <p className="text-muted-foreground mb-10 max-w-sm">
-            Ready to bring your vision to life? Let's collaborate to build digital experiences that matter.
+          <p className="text-muted-foreground mb-10 max-w-sm leading-relaxed text-sm sm:text-base">
+            Ready to bring your vision to life? Let's collaborate to build intelligent, high-performance software and AI systems.
           </p>
           
-          <div className="flex items-center gap-6 group cursor-none w-fit">
+          <a 
+            href={`mailto:${contact.email}`}
+            className="flex items-center gap-6 group cursor-pointer w-fit"
+          >
             <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
               <ArrowUpRight className="w-6 h-6 text-white" />
             </div>
             <span className="font-bold text-sm tracking-widest uppercase group-hover:text-primary transition-colors">
-              Available For<br />Work
+              Get In Touch<br /><span className="text-xs text-muted-foreground font-normal">Available Worldwide</span>
             </span>
-          </div>
+          </a>
         </motion.div>
 
         {/* Middle - Contact Info */}
         <motion.div 
           className="flex flex-col justify-center"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
         >
           <div className="space-y-6">
             {Object.entries(contact).map(([key, value], index) => (
-              <div key={index} className="flex items-center gap-4 group">
+              <a 
+                key={index} 
+                href={getContactLink(key, value)}
+                target={key === 'linkedin' || key === 'github' ? '_blank' : undefined}
+                rel="noreferrer"
+                className="flex items-center gap-4 group cursor-pointer"
+              >
                 <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center text-muted-foreground group-hover:bg-primary group-hover:text-white group-hover:border-primary transition-all duration-300">
                   {contactIcons[key as keyof typeof contactIcons]}
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-1">
+                  <span className="text-xs font-bold uppercase tracking-widest text-muted-foreground mb-0.5 group-hover:text-primary transition-colors">
                     {key}
                   </span>
-                  <a href="#" className="font-medium hover:text-primary transition-colors">
+                  <span className="font-medium text-white/90 group-hover:text-white transition-colors">
                     {value}
-                  </a>
+                  </span>
                 </div>
-              </div>
+              </a>
             ))}
           </div>
         </motion.div>
@@ -74,10 +93,10 @@ export const ContactFooter = () => {
         {/* Right - Mockup Image */}
         <motion.div 
           className="flex items-center justify-center lg:justify-end"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
           <div className="relative w-full max-w-sm aspect-square rounded-2xl overflow-hidden border border-border group">
             <div className="absolute inset-0 bg-black/40 group-hover:bg-black/10 transition-colors duration-500 z-10" />
@@ -90,10 +109,10 @@ export const ContactFooter = () => {
         </motion.div>
       </div>
 
-      {/* Bottom Copyright/Footer Footer */}
+      {/* Bottom Copyright */}
       <div className="container mx-auto px-6 md:px-12 lg:px-24 max-w-[1300px] border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-4 relative z-10">
         <p className="text-muted-foreground text-xs sm:text-sm uppercase tracking-widest font-bold">
-          © {new Date().getFullYear()} Vimlesh Tiwari
+          © {new Date().getFullYear()} Vimlesh Tiwari • All Rights Reserved
         </p>
         <div className="flex flex-wrap justify-center gap-4 sm:gap-6 text-xs sm:text-sm uppercase tracking-widest font-bold text-muted-foreground">
           {contact.linkedin && (
@@ -121,7 +140,7 @@ export const ContactFooter = () => {
         </div>
       </div>
 
-      {/* Giant Background Text for Footer (Subtle) */}
+      {/* Giant Background Text for Footer */}
       <div className="absolute bottom-0 left-0 w-full overflow-hidden flex justify-center pointer-events-none z-0 opacity-5">
         <h2 className="font-display text-[25vw] md:text-[20vw] leading-none whitespace-nowrap text-white translate-y-1/4">
           VIMLESH

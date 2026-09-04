@@ -1,22 +1,25 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Quote, Sparkles, CheckCircle2 } from 'lucide-react';
+import { Quote, Sparkles } from 'lucide-react';
 import { portfolioData } from '../data/portfolio';
 
 export const ProcessAndQuote = () => {
   const { education, skills, process, quote } = portfolioData;
 
   return (
-    <section className="py-24 md:py-32 px-6 md:px-12 lg:px-24 container mx-auto max-w-[1300px]">
+    <section id="process" className="relative z-30 bg-[#080808] rounded-t-[36px] md:rounded-t-[56px] border-t border-white/10 shadow-[0_-30px_90px_rgba(0,0,0,0.95)] pt-16 md:pt-24 pb-28 px-6 md:px-12 lg:px-24 container mx-auto max-w-[1300px] -mt-8">
+      {/* Editorial Curtain Grip Bar */}
+      <div className="w-12 h-1.5 bg-white/15 rounded-full mx-auto mb-12 hover:bg-primary/50 transition-colors" />
+
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-12">
         
         {/* Left Column - Education & Skills */}
         <motion.div 
           className="flex flex-col"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.5 }}
         >
           <div className="mb-12">
             <h3 className="text-primary font-bold text-sm tracking-widest uppercase mb-8 border-b border-border pb-4">
@@ -62,10 +65,10 @@ export const ProcessAndQuote = () => {
         {/* Middle Column - Work Process */}
         <motion.div 
           className="flex flex-col"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
         >
           <h3 className="text-primary font-bold text-sm tracking-widest uppercase mb-8 border-b border-border pb-4">
             Work Process
@@ -99,13 +102,12 @@ export const ProcessAndQuote = () => {
         {/* Right Column - Quote Block */}
         <motion.div 
           className="flex flex-col h-full"
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.4 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <div className="bg-primary rounded-3xl p-6 sm:p-10 h-full flex flex-col justify-between relative overflow-hidden group">
-            {/* Background Texture/Noise for the card */}
+          <div className="bg-primary rounded-3xl p-6 sm:p-10 h-full flex flex-col justify-between relative overflow-hidden group shadow-xl">
             <div className="absolute inset-0 bg-black/10 mix-blend-overlay pointer-events-none" />
             
             <Quote className="w-16 h-16 text-white/20 mb-8 relative z-10" />
