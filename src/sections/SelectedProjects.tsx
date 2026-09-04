@@ -272,7 +272,7 @@ export const SelectedProjects = () => {
       {typeof document !== 'undefined' && createPortal(
         <AnimatePresence>
           {selectedProject && (
-            <div className="fixed inset-0 z-[999] flex items-center justify-center p-3 sm:p-6 md:p-8 overflow-y-auto">
+            <div className="fixed inset-0 z-[999] flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
               {/* Backdrop */}
               <motion.div
                 initial={{ opacity: 0 }}
@@ -284,24 +284,15 @@ export const SelectedProjects = () => {
               
               {/* Modal Card */}
               <motion.div
-                initial={{ opacity: 0, scale: 0.92, y: 30 }}
+                initial={{ opacity: 0, scale: 0.94, y: 25 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.92, y: 30 }}
-                transition={{ type: "spring", damping: 26, stiffness: 260 }}
+                exit={{ opacity: 0, scale: 0.94, y: 25 }}
+                transition={{ type: "spring", damping: 28, stiffness: 300 }}
                 onClick={(e) => e.stopPropagation()}
-                className="relative z-10 w-full max-w-5xl max-h-[90vh] overflow-hidden rounded-2xl md:rounded-3xl bg-[#131313] border border-white/15 shadow-[0_25px_70px_rgba(0,0,0,0.9)] flex flex-col md:flex-row my-auto"
+                className="relative z-10 w-full max-w-4xl xl:max-w-5xl max-h-[88vh] overflow-hidden rounded-2xl sm:rounded-3xl bg-[#131313] border border-white/15 shadow-[0_25px_70px_rgba(0,0,0,0.95)] flex flex-col md:flex-row my-auto"
               >
-                {/* Close Button */}
-                <button 
-                  onClick={() => setSelectedProject(null)}
-                  className="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-black/60 border border-white/20 flex items-center justify-center text-white hover:bg-primary hover:text-white hover:border-primary transition-all duration-200 cursor-pointer shadow-lg"
-                  aria-label="Close details"
-                >
-                  <X className="w-5 h-5" />
-                </button>
-
                 {/* Modal Left / Top Image */}
-                <div className="w-full md:w-5/12 h-[220px] sm:h-[280px] md:h-auto relative overflow-hidden bg-black shrink-0">
+                <div className="w-full md:w-5/12 h-[180px] sm:h-[220px] md:h-auto relative overflow-hidden bg-black shrink-0">
                   <img 
                     src={selectedProject.image} 
                     alt={selectedProject.title}
@@ -311,47 +302,64 @@ export const SelectedProjects = () => {
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#131313]/90 hidden md:block" />
                 </div>
 
-                {/* Modal Right Details */}
-                <div className="w-full md:w-7/12 p-6 sm:p-8 md:p-10 overflow-y-auto max-h-[calc(90vh-220px)] md:max-h-[90vh] flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center gap-3 mb-2">
-                      <span className="text-primary font-display text-xl sm:text-2xl font-bold">{selectedProject.id}</span>
-                      <div className="inline-block bg-primary/10 border border-primary/25 px-3 py-0.5 rounded-full">
-                        <p className="text-primary font-bold text-[10px] sm:text-xs tracking-widest uppercase">
+                {/* Modal Right Column */}
+                <div className="w-full md:w-7/12 flex flex-col justify-between overflow-hidden bg-[#131313]">
+                  {/* Dedicated Header Bar with Close Button */}
+                  <div className="px-6 sm:px-8 pt-5 pb-3 border-b border-white/5 flex items-center justify-between shrink-0 bg-[#131313]">
+                    <div className="flex items-center gap-3">
+                      <span className="text-primary font-mono text-base sm:text-lg font-bold">
+                        {selectedProject.id}
+                      </span>
+                      <div className="inline-block bg-primary/10 border border-primary/25 px-2.5 py-0.5 rounded-full">
+                        <p className="text-primary font-bold text-[10px] sm:text-xs tracking-wider uppercase">
                           {selectedProject.category}
                         </p>
                       </div>
                     </div>
 
-                    <h3 className="font-display text-2xl sm:text-3xl md:text-4xl uppercase tracking-tighter mb-4 text-white">
-                      {selectedProject.title}
-                    </h3>
+                    {/* Close Button */}
+                    <button 
+                      onClick={() => setSelectedProject(null)}
+                      className="w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-gray-400 hover:text-white hover:bg-primary hover:border-primary transition-all duration-200 cursor-pointer"
+                      aria-label="Close details"
+                    >
+                      <X className="w-4 h-4" />
+                    </button>
+                  </div>
 
-                    {/* Tech Stack */}
-                    {selectedProject.techStack && (
-                      <div className="flex flex-wrap gap-1.5 mb-5">
-                        {selectedProject.techStack.map((tech: string, i: number) => (
-                          <span key={i} className="text-[10px] sm:text-xs font-semibold tracking-wider uppercase bg-white/5 border border-white/10 px-2.5 py-1 rounded-md text-gray-300">
-                            {tech}
-                          </span>
-                        ))}
-                      </div>
-                    )}
+                  {/* Scrollable Body Content */}
+                  <div className="p-6 sm:p-8 overflow-y-auto max-h-[calc(88vh-140px)] modal-scrollbar space-y-5">
+                    <div>
+                      <h3 className="font-display text-xl sm:text-2xl md:text-3xl uppercase tracking-tight text-white leading-tight mb-3">
+                        {selectedProject.title}
+                      </h3>
 
-                    {/* Project Brief */}
-                    {(selectedProject as any).brief ? (
-                      <p className="text-gray-300 text-xs sm:text-sm mb-5 leading-relaxed">
-                        {(selectedProject as any).brief}
-                      </p>
-                    ) : (
-                      <p className="text-gray-300 text-xs sm:text-sm mb-5 leading-relaxed">
-                        This is a featured project spanning modern web technologies, beautiful editorial design, and robust engineering. We focused heavily on the user experience and performance to deliver exceptional value.
-                      </p>
-                    )}
+                      {/* Tech Stack Chips */}
+                      {selectedProject.techStack && (
+                        <div className="flex flex-wrap gap-1.5 mb-4">
+                          {selectedProject.techStack.map((tech: string, i: number) => (
+                            <span key={i} className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider bg-white/5 border border-white/10 px-2.5 py-1 rounded-md text-gray-300">
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Project Brief */}
+                      {(selectedProject as any).brief ? (
+                        <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
+                          {(selectedProject as any).brief}
+                        </p>
+                      ) : (
+                        <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
+                          This is a featured project spanning modern web technologies, beautiful editorial design, and robust engineering. We focused heavily on user experience and performance to deliver exceptional value.
+                        </p>
+                      )}
+                    </div>
 
                     {/* Key Features */}
                     {(selectedProject as any).keyFeatures && (
-                      <div className="mb-5">
+                      <div className="pt-3 border-t border-white/5">
                         <h4 className="text-white font-bold text-[11px] sm:text-xs tracking-widest uppercase mb-2.5 flex items-center gap-2">
                           <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span>
                           Key Features
@@ -360,7 +368,7 @@ export const SelectedProjects = () => {
                           {(selectedProject as any).keyFeatures.map((feature: string, i: number) => (
                             <li key={i} className="flex items-start gap-2">
                               <span className="text-primary font-bold mt-0.5">›</span>
-                              <span>{feature}</span>
+                              <span className="leading-relaxed">{feature}</span>
                             </li>
                           ))}
                         </ul>
@@ -369,7 +377,7 @@ export const SelectedProjects = () => {
 
                     {/* What I Learned */}
                     {(selectedProject as any).learned && (
-                      <div className="mb-6">
+                      <div className="pt-3 border-t border-white/5">
                         <h4 className="text-white font-bold text-[11px] sm:text-xs tracking-widest uppercase mb-2.5 flex items-center gap-2">
                           <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span>
                           What I Learned
@@ -378,7 +386,7 @@ export const SelectedProjects = () => {
                           {(selectedProject as any).learned.map((item: string, i: number) => (
                             <li key={i} className="flex items-start gap-2">
                               <span className="text-primary font-bold mt-0.5">›</span>
-                              <span>{item}</span>
+                              <span className="leading-relaxed">{item}</span>
                             </li>
                           ))}
                         </ul>
@@ -386,21 +394,21 @@ export const SelectedProjects = () => {
                     )}
                   </div>
 
-                  {/* Actions */}
-                  <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-white/10 mt-auto">
+                  {/* Actions Footer */}
+                  <div className="px-6 sm:px-8 py-3.5 border-t border-white/5 bg-[#131313] flex flex-wrap items-center gap-3 shrink-0">
                     {selectedProject.link && selectedProject.link !== '#' ? (
                       <a 
                         href={selectedProject.link}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-center gap-2 bg-white text-black px-5 py-2.5 rounded-full font-bold uppercase tracking-wider text-[11px] sm:text-xs hover:bg-primary hover:text-white transition-all duration-300 shadow-md cursor-pointer"
+                        className="flex items-center gap-2 bg-white text-black px-4 py-2 rounded-full font-bold uppercase tracking-wider text-[11px] sm:text-xs hover:bg-primary hover:text-white transition-all duration-300 shadow-md cursor-pointer"
                       >
-                        <GithubIcon className="w-4 h-4" />
+                        <GithubIcon className="w-3.5 h-3.5" />
                         View Code
                       </a>
                     ) : (
-                      <span className="flex items-center gap-2 bg-white/10 text-gray-400 px-5 py-2.5 rounded-full font-bold uppercase tracking-wider text-[11px] sm:text-xs">
-                        <GithubIcon className="w-4 h-4" />
+                      <span className="flex items-center gap-2 bg-white/10 text-gray-400 px-4 py-2 rounded-full font-bold uppercase tracking-wider text-[11px] sm:text-xs">
+                        <GithubIcon className="w-3.5 h-3.5" />
                         Code Private / Internal
                       </span>
                     )}
@@ -410,9 +418,9 @@ export const SelectedProjects = () => {
                         href={(selectedProject as any).liveLink}
                         target="_blank"
                         rel="noreferrer"
-                        className="flex items-center gap-2 bg-primary text-white border border-primary px-5 py-2.5 rounded-full font-bold uppercase tracking-wider text-[11px] sm:text-xs hover:bg-transparent hover:text-primary transition-all duration-300 shadow-md cursor-pointer"
+                        className="flex items-center gap-2 bg-primary text-white border border-primary px-4 py-2 rounded-full font-bold uppercase tracking-wider text-[11px] sm:text-xs hover:bg-transparent hover:text-primary transition-all duration-300 shadow-md cursor-pointer"
                       >
-                        <ExternalLink className="w-4 h-4" />
+                        <ExternalLink className="w-3.5 h-3.5" />
                         Live Demo
                       </a>
                     )}
