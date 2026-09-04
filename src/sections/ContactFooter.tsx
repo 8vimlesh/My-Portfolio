@@ -27,7 +27,7 @@ export const ContactFooter = () => {
       {/* Editorial Curtain Grip Bar with Red Glow Accent */}
       <div className="w-12 h-1.5 bg-primary/40 rounded-full mx-auto mb-12 hover:bg-primary transition-colors shadow-[0_0_10px_rgba(224,32,32,0.5)]" />
 
-      <div className="container mx-auto px-6 md:px-12 lg:px-24 max-w-[1300px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 lg:gap-12 mb-20 relative z-10">
+      <div className="w-full max-w-[1720px] 2xl:max-w-[1880px] mx-auto px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-16 lg:gap-12 mb-20 relative z-10">
         
         {/* Left - CTA */}
         <motion.div 
@@ -110,7 +110,7 @@ export const ContactFooter = () => {
       </div>
 
       {/* Bottom Copyright */}
-      <div className="container mx-auto px-6 md:px-12 lg:px-24 max-w-[1300px] border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-4 relative z-10">
+      <div className="w-full max-w-[1720px] 2xl:max-w-[1880px] mx-auto px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24 border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-4 relative z-10">
         <p className="text-muted-foreground text-xs sm:text-sm uppercase tracking-widest font-bold">
           © {new Date().getFullYear()} Vimlesh Tiwari • All Rights Reserved
         </p>

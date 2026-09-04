@@ -7,11 +7,11 @@ export const ProcessAndQuote = () => {
   const { experience, education, skills, process, quote } = portfolioData;
 
   return (
-    <section id="process" className="relative z-30 bg-[#080808] rounded-t-[36px] md:rounded-t-[56px] border-t border-white/10 shadow-[0_-30px_90px_rgba(0,0,0,0.95)] pt-16 md:pt-24 pb-28 px-6 md:px-12 lg:px-24 container mx-auto max-w-[1300px] -mt-8">
+    <section id="process" className="relative z-30 bg-[#080808] rounded-t-[36px] md:rounded-t-[56px] border-t border-white/10 shadow-[0_-30px_90px_rgba(0,0,0,0.95)] pt-16 md:pt-24 pb-28 px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24 max-w-[1720px] 2xl:max-w-[1880px] mx-auto -mt-8 w-full">
       {/* Editorial Curtain Grip Bar */}
       <div className="w-12 h-1.5 bg-white/15 rounded-full mx-auto mb-12 hover:bg-primary/50 transition-colors" />
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-12">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 xl:gap-16">
         
         {/* Left Column - Experience & Certifications */}
         <motion.div 

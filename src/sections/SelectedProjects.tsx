@@ -1,13 +1,44 @@
 import React, { useState, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, X, ExternalLink } from 'lucide-react';
+import { ArrowUpRight, X, ExternalLink, LayoutGrid, List, Sparkles } from 'lucide-react';
 import { GithubIcon } from '../components/ui/icons';
 import { portfolioData } from '../data/portfolio';
+
+const categories = [
+  { id: 'all', label: 'All Projects' },
+  { id: 'ai', label: 'AI & ML / RAG' },
+  { id: 'fullstack', label: 'Full-Stack Apps' },
+  { id: 'data', label: 'Data & Analytics' },
+];
 
 export const SelectedProjects = () => {
   const { projects } = portfolioData;
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
+  const [activeCategory, setActiveCategory] = useState('all');
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+
+  // Filter projects based on active category
+  const filteredProjects = projects.filter((project) => {
+    if (activeCategory === 'all') return true;
+    if (activeCategory === 'ai') {
+      return ['02', '04', '05'].includes(project.id) || 
+        project.category.toLowerCase().includes('ai') || 
+        project.category.toLowerCase().includes('vision') ||
+        project.category.toLowerCase().includes('rag');
+    }
+    if (activeCategory === 'fullstack') {
+      return ['01', '03', '07'].includes(project.id) || 
+        project.category.toLowerCase().includes('fullstack') || 
+        project.category.toLowerCase().includes('finance');
+    }
+    if (activeCategory === 'data') {
+      return ['06', '08'].includes(project.id) || 
+        project.category.toLowerCase().includes('data') || 
+        project.category.toLowerCase().includes('intelligence');
+    }
+    return true;
+  });
 
   // Lock body scroll and handle ESC key when modal is open
   useEffect(() => {
@@ -29,81 +60,213 @@ export const SelectedProjects = () => {
   }, [selectedProject]);
 
   return (
-    <section id="projects" className="relative z-20 bg-[#0d0d0d] rounded-t-[36px] md:rounded-t-[56px] border-t border-white/10 shadow-[0_-30px_90px_rgba(0,0,0,0.95)] pt-16 md:pt-24 pb-28 px-6 md:px-12 lg:px-24 container mx-auto max-w-[1300px] mt-8">
+    <section id="projects" className="relative z-20 bg-[#0d0d0d] rounded-t-[36px] md:rounded-t-[56px] border-t border-white/10 shadow-[0_-30px_90px_rgba(0,0,0,0.95)] pt-14 md:pt-20 pb-24 px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24 max-w-[1720px] 2xl:max-w-[1880px] mx-auto mt-8 w-full">
       {/* Editorial Curtain Grip Bar */}
-      <div className="w-12 h-1.5 bg-white/15 rounded-full mx-auto mb-12 hover:bg-primary/50 transition-colors" />
+      <div className="w-12 h-1.5 bg-white/15 rounded-full mx-auto mb-10 hover:bg-primary/50 transition-colors" />
 
-      {/* Header */}
-      <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
-        <motion.h2 
-          className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase tracking-tighter"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          Selected Projects
-        </motion.h2>
-        <motion.a 
-          href="https://github.com/8vimlesh"
-          target="_blank"
-          rel="noreferrer"
-          className="text-sm font-bold tracking-widest uppercase hover:text-primary transition-colors flex items-center gap-2 group cursor-pointer border-b border-transparent hover:border-primary pb-1"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          View All Projects
-          <ArrowUpRight className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-        </motion.a>
-      </div>
-
-      {/* Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projects.map((project, index) => (
-          <motion.div
-            key={project.id}
-            onClick={() => setSelectedProject(project)}
-            className="group cursor-pointer flex flex-col"
-            initial={{ opacity: 0, y: 25 }}
+      {/* Header & Controls */}
+      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-10 gap-6">
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+            <span className="text-xs font-bold uppercase tracking-widest text-primary">Curated Portfolio</span>
+          </div>
+          <motion.h2 
+            className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase tracking-tighter text-white"
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.5, delay: (index % 3) * 0.08 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
           >
-            {/* Image Container */}
-            <div className="relative aspect-[4/5] overflow-hidden rounded-2xl mb-6 bg-secondary border border-border group-hover:border-primary/50 transition-colors duration-300">
-              {/* Overlay Text */}
-              <div className="absolute inset-0 z-20 flex items-center justify-center p-6 bg-black/40 group-hover:bg-black/20 transition-colors duration-500">
-                <h3 className="font-display text-2xl sm:text-3xl md:text-4xl text-center uppercase tracking-tight text-white group-hover:text-primary transition-colors duration-500 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0">
-                  {project.title}
-                </h3>
-              </div>
-              
-              <img 
-                src={project.image} 
-                alt={project.title}
-                className="w-full h-full object-cover grayscale opacity-75 group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 ease-out"
-              />
-            </div>
+            Selected Projects
+          </motion.h2>
+        </div>
 
-            {/* Bottom Info */}
-            <div className="flex items-start justify-between">
-              <div className="flex flex-col">
-                <span className="text-primary font-display text-lg mb-1">{project.id}</span>
-                <h4 className="font-bold text-xl uppercase tracking-wider mb-1 group-hover:text-primary transition-colors duration-300">{project.title}</h4>
-                <p className="text-muted-foreground text-sm uppercase tracking-widest">{project.category}</p>
-              </div>
-              
-              {/* Arrow Reveal Button */}
-              <div className="w-12 h-12 rounded-full border border-border flex items-center justify-center group-hover:bg-primary group-hover:border-primary transition-colors duration-300 overflow-hidden relative shrink-0 ml-3">
-                <ArrowUpRight className="w-5 h-5 text-foreground group-hover:text-white absolute transition-transform duration-300 transform -translate-x-full translate-y-full group-hover:translate-x-0 group-hover:translate-y-0" />
-                <ArrowUpRight className="w-5 h-5 text-muted-foreground group-hover:text-white absolute transition-transform duration-300 transform translate-x-0 translate-y-0 group-hover:translate-x-full group-hover:-translate-y-full" />
-              </div>
-            </div>
-          </motion.div>
-        ))}
+        {/* Filters & View Switcher */}
+        <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto justify-between lg:justify-end">
+          {/* Category Tabs */}
+          <div className="flex flex-wrap items-center gap-1.5 bg-[#171717] p-1.5 rounded-2xl border border-white/10">
+            {categories.map((cat) => {
+              const isActive = activeCategory === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`relative px-3.5 py-1.5 rounded-xl text-xs font-semibold tracking-wider uppercase transition-all duration-300 cursor-pointer ${
+                    isActive ? 'text-white font-bold' : 'text-gray-400 hover:text-white'
+                  }`}
+                >
+                  {isActive && (
+                    <motion.div
+                      layoutId="activeProjectCategory"
+                      className="absolute inset-0 bg-primary rounded-xl shadow-[0_0_15px_rgba(224,32,32,0.4)]"
+                      transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                    />
+                  )}
+                  <span className="relative z-10">{cat.label}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* View Mode Switcher */}
+          <div className="flex items-center bg-[#171717] p-1 rounded-xl border border-white/10">
+            <button
+              onClick={() => setViewMode('grid')}
+              className={`p-2 rounded-lg transition-colors cursor-pointer ${
+                viewMode === 'grid' ? 'bg-white/15 text-white' : 'text-gray-400 hover:text-white'
+              }`}
+              title="Grid View"
+              aria-label="Grid View"
+            >
+              <LayoutGrid className="w-4 h-4" />
+            </button>
+            <button
+              onClick={() => setViewMode('list')}
+              className={`p-2 rounded-lg transition-colors cursor-pointer ${
+                viewMode === 'list' ? 'bg-white/15 text-white' : 'text-gray-400 hover:text-white'
+              }`}
+              title="List View"
+              aria-label="List View"
+            >
+              <List className="w-4 h-4" />
+            </button>
+          </div>
+        </div>
       </div>
+
+      {/* Grid View */}
+      {viewMode === 'grid' && (
+        <motion.div 
+          layout
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                layout
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.35, delay: index * 0.04 }}
+                onClick={() => setSelectedProject(project)}
+                className="group cursor-pointer flex flex-col bg-[#141414] hover:bg-[#1a1a1a] border border-white/10 hover:border-primary/50 rounded-2xl p-4 transition-all duration-300 shadow-lg hover:shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
+              >
+                {/* Compact 16:10 Image Container */}
+                <div className="relative aspect-[16/10] overflow-hidden rounded-xl mb-4 bg-secondary border border-white/5 group-hover:border-primary/30 transition-colors">
+                  <img 
+                    src={project.image} 
+                    alt={project.title}
+                    className="w-full h-full object-cover grayscale opacity-75 group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 ease-out"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  
+                  {/* Top Badge Overlay */}
+                  <div className="absolute top-2.5 left-2.5 right-2.5 flex items-center justify-between pointer-events-none">
+                    <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-black/70 backdrop-blur-sm border border-white/10 text-primary">
+                      {project.id}
+                    </span>
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-primary/80 text-white backdrop-blur-sm shadow">
+                      {project.category}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Bottom Details */}
+                <div className="flex flex-col flex-1 justify-between">
+                  <div>
+                    <h4 className="font-bold text-base sm:text-lg uppercase tracking-wide text-white group-hover:text-primary transition-colors duration-200 line-clamp-1 mb-2">
+                      {project.title}
+                    </h4>
+
+                    {/* Tech Stack Pills */}
+                    {project.techStack && (
+                      <div className="flex flex-wrap gap-1 mb-4">
+                        {project.techStack.slice(0, 3).map((tech: string, i: number) => (
+                          <span key={i} className="text-[10px] font-medium bg-white/5 border border-white/10 px-2 py-0.5 rounded text-gray-300">
+                            {tech}
+                          </span>
+                        ))}
+                        {project.techStack.length > 3 && (
+                          <span className="text-[10px] font-medium text-gray-400 self-center">
+                            +{project.techStack.length - 3}
+                          </span>
+                        )}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Click to inspect action */}
+                  <div className="flex items-center justify-between pt-2 border-t border-white/5 text-xs text-muted-foreground group-hover:text-primary transition-colors">
+                    <span className="font-semibold uppercase tracking-wider text-[11px]">View Details</span>
+                    <div className="w-7 h-7 rounded-full bg-white/5 group-hover:bg-primary group-hover:text-white flex items-center justify-center transition-colors">
+                      <ArrowUpRight className="w-3.5 h-3.5" />
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+      )}
+
+      {/* Sleek List View */}
+      {viewMode === 'list' && (
+        <motion.div 
+          layout
+          className="flex flex-col divide-y divide-white/10 border-y border-white/10"
+        >
+          <AnimatePresence mode="popLayout">
+            {filteredProjects.map((project, index) => (
+              <motion.div
+                key={project.id}
+                layout
+                initial={{ opacity: 0, y: 15 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -15 }}
+                transition={{ duration: 0.25, delay: index * 0.03 }}
+                onClick={() => setSelectedProject(project)}
+                className="group cursor-pointer py-4 sm:py-5 px-3 sm:px-6 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-white/[0.03] transition-colors rounded-xl"
+              >
+                <div className="flex items-center gap-4 sm:gap-6">
+                  <span className="font-mono text-sm sm:text-base font-bold text-primary w-8 shrink-0">
+                    {project.id}
+                  </span>
+                  <div>
+                    <h4 className="font-bold text-base sm:text-xl text-white group-hover:text-primary transition-colors">
+                      {project.title}
+                    </h4>
+                    <p className="text-xs text-muted-foreground uppercase tracking-wider mt-0.5">
+                      {project.category}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4 sm:gap-8 justify-between md:justify-end">
+                  {/* Tech stack */}
+                  {project.techStack && (
+                    <div className="hidden sm:flex flex-wrap gap-1.5 max-w-md justify-end">
+                      {project.techStack.slice(0, 4).map((tech: string, i: number) => (
+                        <span key={i} className="text-[10px] font-semibold bg-white/5 border border-white/10 px-2 py-0.5 rounded text-gray-300">
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-primary group-hover:translate-x-1 transition-transform">
+                    <span className="hidden sm:inline">Details</span>
+                    <div className="w-8 h-8 rounded-full border border-white/10 group-hover:border-primary group-hover:bg-primary group-hover:text-white flex items-center justify-center transition-colors">
+                      <ArrowUpRight className="w-4 h-4" />
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </AnimatePresence>
+        </motion.div>
+      )}
 
       {/* Project Details Modal rendered via Portal */}
       {typeof document !== 'undefined' && createPortal(

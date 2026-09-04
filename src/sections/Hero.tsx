@@ -21,19 +21,19 @@ export const Hero = () => {
   return (
     <motion.section 
       style={{ scale: heroScale, opacity: heroOpacity, y: heroY }}
-      className="sticky top-0 min-h-screen flex items-center overflow-hidden pt-24 pb-16 z-10 origin-top"
+      className="sticky top-0 min-h-screen flex items-center overflow-hidden pt-24 pb-16 z-10 origin-top w-full"
     >
       {/* Giant Background Text */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex justify-center pointer-events-none z-0 select-none">
-        <h1 className="font-display text-[25vw] md:text-[15vw] leading-none whitespace-nowrap text-gradient-red opacity-20 transform -translate-y-10">
+        <h1 className="font-display text-[26vw] md:text-[18vw] lg:text-[19vw] leading-none whitespace-nowrap text-gradient-red opacity-20 transform -translate-y-8">
           {hero.title}
         </h1>
       </div>
 
-      <div className="relative z-10 container mx-auto px-6 md:px-12 lg:px-24 max-w-[1300px] flex flex-col lg:flex-row items-center h-full gap-12">
+      <div className="relative z-10 w-full max-w-[1720px] 2xl:max-w-[1880px] mx-auto px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24 flex flex-col lg:flex-row items-center justify-between h-full gap-8 lg:gap-16">
         
         {/* Left Content */}
-        <div className="flex-1 w-full flex flex-col justify-center items-start pt-12 lg:pt-0">
+        <div className="flex-1 w-full flex flex-col justify-center items-start pt-8 lg:pt-0 z-20">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
@@ -41,11 +41,11 @@ export const Hero = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
           >
-            <p className="font-script text-3xl md:text-5xl text-foreground mb-2 sm:mb-4">
+            <p className="font-script text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-foreground mb-2 sm:mb-4">
               {hero.greeting}
             </p>
             
-            <h2 className="font-display text-[13vw] sm:text-6xl md:text-8xl lg:text-[7rem] leading-[0.85] tracking-tighter text-foreground mb-4 sm:mb-6 uppercase">
+            <h2 className="font-display text-[13vw] sm:text-6xl md:text-8xl lg:text-[7.5rem] xl:text-[8.5rem] leading-[0.82] tracking-tighter text-foreground mb-4 sm:mb-6 uppercase">
               {hero.name.split('\n').map((line, i) => (
                 <React.Fragment key={i}>
                   {line}
@@ -60,7 +60,7 @@ export const Hero = () => {
               </p>
             </div>
 
-            <p className="text-muted-foreground text-base sm:text-lg md:text-xl w-full max-w-md leading-relaxed mb-8">
+            <p className="text-muted-foreground text-base sm:text-lg md:text-xl w-full max-w-xl leading-relaxed mb-8">
               {hero.description}
             </p>
 
@@ -72,9 +72,9 @@ export const Hero = () => {
         </div>
 
         {/* Right Content - Photo & Stats */}
-        <div className="flex-1 relative w-full h-[50vh] sm:h-[60vh] lg:h-[80vh] min-h-[400px] sm:min-h-[500px]" style={{ perspective: 1200 }}>
+        <div className="flex-1 relative w-full h-[45vh] sm:h-[55vh] lg:h-[72vh] xl:h-[76vh] min-h-[360px] sm:min-h-[440px] flex items-end justify-center lg:justify-end" style={{ perspective: 1200 }}>
           <motion.div 
-            className="absolute inset-0 overflow-visible origin-bottom"
+            className="absolute inset-0 overflow-visible origin-bottom flex items-end justify-center lg:justify-end"
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
@@ -91,18 +91,18 @@ export const Hero = () => {
             <img 
               src="/profile-transparent.png" 
               alt="Portrait" 
-              className="w-full h-full object-contain object-bottom scale-[1.15] lg:scale-[1.4] xl:scale-[1.5] origin-bottom grayscale opacity-90 drop-shadow-2xl"
+              className="w-full h-full object-contain object-bottom scale-[0.95] sm:scale-[1.0] lg:scale-[1.08] xl:scale-[1.15] origin-bottom grayscale opacity-90 drop-shadow-2xl"
             />
           </motion.div>
 
           {/* Floating Tagline Card */}
           <motion.div 
-            className="absolute bottom-4 lg:bottom-12 left-0 lg:-left-20 xl:-left-32 z-20 glass-card p-4 sm:p-6 rounded-2xl flex items-center gap-3 sm:gap-4 w-max shadow-2xl"
+            className="absolute bottom-4 lg:bottom-12 left-0 lg:-left-12 xl:-left-20 z-20 glass-card p-4 sm:p-6 rounded-2xl flex items-center gap-3 sm:gap-4 w-max shadow-2xl"
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
           >
-            <Sparkles className="w-6 h-6 text-primary shrink-0" />
+            <Sparkles className="w-6 h-6 text-primary shrink-0 animate-pulse" />
             <p className="font-bold text-sm tracking-widest uppercase whitespace-nowrap">
               {hero.tagline}
             </p>
@@ -110,14 +110,14 @@ export const Hero = () => {
 
           {/* Vertical Stats Blocks */}
           <motion.div 
-            className="absolute right-0 lg:-right-8 xl:-right-16 top-1/2 -translate-y-1/2 z-20 hidden lg:flex flex-col gap-8"
+            className="absolute right-0 lg:-right-4 xl:right-0 top-1/2 -translate-y-1/2 z-20 hidden lg:flex flex-col gap-8 bg-black/40 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/5 shadow-2xl"
             initial={{ opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
           >
             {hero.stats.map((stat, i) => (
-              <div key={i} className="flex flex-col items-end border-r-2 border-primary/30 pr-6">
-                <span className="font-display text-4xl text-primary mb-1">{stat.value}</span>
+              <div key={i} className="flex flex-col items-end border-r-2 border-primary/40 pr-5">
+                <span className="font-display text-4xl xl:text-5xl text-primary mb-1">{stat.value}</span>
                 <span className="text-xs uppercase tracking-widest text-muted-foreground text-right w-24">
                   {stat.label}
                 </span>

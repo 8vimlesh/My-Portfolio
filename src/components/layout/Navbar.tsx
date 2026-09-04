@@ -8,7 +8,7 @@ export const Navbar = () => {
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-6 py-8 md:px-12 lg:px-24 max-w-[1300px] mx-auto w-full"
+      className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24 max-w-[1720px] 2xl:max-w-[1880px] mx-auto w-full py-8"
     >
       <a href="#" className="flex flex-col justify-center group">
         <span className="text-primary font-bold text-xs tracking-widest uppercase mb-0.5">
