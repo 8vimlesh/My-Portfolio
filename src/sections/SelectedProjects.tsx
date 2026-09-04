@@ -1,16 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, X } from 'lucide-react';
+import { ArrowUpRight, X, ExternalLink } from 'lucide-react';
+import { GithubIcon } from '../components/ui/icons';
 import { portfolioData } from '../data/portfolio';
 
 export const SelectedProjects = () => {
   const { projects } = portfolioData;
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
 
-  // Lock body scroll when modal is open
-  React.useEffect(() => {
+  // Lock body scroll and handle ESC key when modal is open
+  useEffect(() => {
     if (selectedProject) {
       document.body.style.overflow = 'hidden';
+      const handleKeyDown = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          setSelectedProject(null);
+        }
+      };
+      window.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.body.style.overflow = 'unset';
+        window.removeEventListener('keydown', handleKeyDown);
+      };
     } else {
       document.body.style.overflow = 'unset';
     }
@@ -93,137 +105,162 @@ export const SelectedProjects = () => {
         ))}
       </div>
 
-      {/* Project Details Modal */}
-      <AnimatePresence>
-        {selectedProject && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedProject(null)}
-              className="fixed inset-0 z-[100] bg-black/80 backdrop-blur-sm"
-            />
-            
-            {/* Modal Content */}
-            <motion.div
-              initial={{ opacity: 0, y: 100, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 100, scale: 0.95 }}
-              transition={{ type: "spring", damping: 25, stiffness: 200 }}
-              className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-[101] w-[calc(100%-2rem)] md:w-full max-w-6xl max-h-[95vh] overflow-y-auto rounded-2xl bg-secondary border border-border shadow-2xl flex flex-col md:flex-row"
-            >
-              {/* Close Button */}
-              <button 
+      {/* Project Details Modal rendered via Portal */}
+      {typeof document !== 'undefined' && createPortal(
+        <AnimatePresence>
+          {selectedProject && (
+            <div className="fixed inset-0 z-[999] flex items-center justify-center p-3 sm:p-6 md:p-8 overflow-y-auto">
+              {/* Backdrop */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 onClick={() => setSelectedProject(null)}
-                className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-black/50 border border-white/10 flex items-center justify-center text-white hover:bg-primary hover:text-white hover:border-primary transition-colors duration-300"
+                className="fixed inset-0 bg-black/85 backdrop-blur-md cursor-pointer"
+              />
+              
+              {/* Modal Card */}
+              <motion.div
+                initial={{ opacity: 0, scale: 0.92, y: 30 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.92, y: 30 }}
+                transition={{ type: "spring", damping: 26, stiffness: 260 }}
+                onClick={(e) => e.stopPropagation()}
+                className="relative z-10 w-full max-w-5xl max-h-[90vh] overflow-hidden rounded-2xl md:rounded-3xl bg-[#131313] border border-white/15 shadow-[0_25px_70px_rgba(0,0,0,0.9)] flex flex-col md:flex-row my-auto"
               >
-                <X className="w-5 h-5" />
-              </button>
+                {/* Close Button */}
+                <button 
+                  onClick={() => setSelectedProject(null)}
+                  className="absolute top-4 right-4 z-30 w-10 h-10 rounded-full bg-black/60 border border-white/20 flex items-center justify-center text-white hover:bg-primary hover:text-white hover:border-primary transition-all duration-200 cursor-pointer shadow-lg"
+                  aria-label="Close details"
+                >
+                  <X className="w-5 h-5" />
+                </button>
 
-              {/* Modal Image */}
-              <div className="w-full md:w-5/12 h-[200px] sm:h-[250px] md:h-auto relative overflow-hidden">
-                <img 
-                  src={selectedProject.image} 
-                  alt={selectedProject.title}
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-secondary via-transparent to-transparent md:hidden" />
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-secondary hidden md:block" />
-              </div>
-
-              {/* Modal Details */}
-              <div className="w-full md:w-7/12 p-6 md:p-8 flex flex-col justify-center">
-                <span className="text-primary font-display text-xl sm:text-2xl mb-1">{selectedProject.id}</span>
-                <h3 className="font-display text-3xl sm:text-4xl md:text-5xl uppercase tracking-tighter mb-3">{selectedProject.title}</h3>
-                
-                <div className="inline-block bg-primary/10 border border-primary/20 px-3 py-1 rounded-full mb-4 w-fit">
-                  <p className="text-primary font-bold text-[10px] sm:text-xs tracking-widest uppercase">
-                    {selectedProject.category}
-                  </p>
+                {/* Modal Left / Top Image */}
+                <div className="w-full md:w-5/12 h-[220px] sm:h-[280px] md:h-auto relative overflow-hidden bg-black shrink-0">
+                  <img 
+                    src={selectedProject.image} 
+                    alt={selectedProject.title}
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#131313] via-transparent to-transparent md:hidden" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#131313]/90 hidden md:block" />
                 </div>
 
-                {/* Tech Stack */}
-                {selectedProject.techStack && (
-                  <div className="flex flex-wrap gap-1.5 mb-4">
-                    {selectedProject.techStack.map((tech: string, i: number) => (
-                      <span key={i} className="text-[10px] sm:text-xs font-semibold tracking-wider uppercase bg-white/5 border border-white/10 px-2 py-0.5 rounded-md text-muted-foreground">
-                        {tech}
+                {/* Modal Right Details */}
+                <div className="w-full md:w-7/12 p-6 sm:p-8 md:p-10 overflow-y-auto max-h-[calc(90vh-220px)] md:max-h-[90vh] flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center gap-3 mb-2">
+                      <span className="text-primary font-display text-xl sm:text-2xl font-bold">{selectedProject.id}</span>
+                      <div className="inline-block bg-primary/10 border border-primary/25 px-3 py-0.5 rounded-full">
+                        <p className="text-primary font-bold text-[10px] sm:text-xs tracking-widest uppercase">
+                          {selectedProject.category}
+                        </p>
+                      </div>
+                    </div>
+
+                    <h3 className="font-display text-2xl sm:text-3xl md:text-4xl uppercase tracking-tighter mb-4 text-white">
+                      {selectedProject.title}
+                    </h3>
+
+                    {/* Tech Stack */}
+                    {selectedProject.techStack && (
+                      <div className="flex flex-wrap gap-1.5 mb-5">
+                        {selectedProject.techStack.map((tech: string, i: number) => (
+                          <span key={i} className="text-[10px] sm:text-xs font-semibold tracking-wider uppercase bg-white/5 border border-white/10 px-2.5 py-1 rounded-md text-gray-300">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Project Brief */}
+                    {(selectedProject as any).brief ? (
+                      <p className="text-gray-300 text-xs sm:text-sm mb-5 leading-relaxed">
+                        {(selectedProject as any).brief}
+                      </p>
+                    ) : (
+                      <p className="text-gray-300 text-xs sm:text-sm mb-5 leading-relaxed">
+                        This is a featured project spanning modern web technologies, beautiful editorial design, and robust engineering. We focused heavily on the user experience and performance to deliver exceptional value.
+                      </p>
+                    )}
+
+                    {/* Key Features */}
+                    {(selectedProject as any).keyFeatures && (
+                      <div className="mb-5">
+                        <h4 className="text-white font-bold text-[11px] sm:text-xs tracking-widest uppercase mb-2.5 flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span>
+                          Key Features
+                        </h4>
+                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-gray-300 text-xs sm:text-sm">
+                          {(selectedProject as any).keyFeatures.map((feature: string, i: number) => (
+                            <li key={i} className="flex items-start gap-2">
+                              <span className="text-primary font-bold mt-0.5">›</span>
+                              <span>{feature}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* What I Learned */}
+                    {(selectedProject as any).learned && (
+                      <div className="mb-6">
+                        <h4 className="text-white font-bold text-[11px] sm:text-xs tracking-widest uppercase mb-2.5 flex items-center gap-2">
+                          <span className="w-1.5 h-1.5 rounded-full bg-primary inline-block"></span>
+                          What I Learned
+                        </h4>
+                        <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-gray-300 text-xs sm:text-sm">
+                          {(selectedProject as any).learned.map((item: string, i: number) => (
+                            <li key={i} className="flex items-start gap-2">
+                              <span className="text-primary font-bold mt-0.5">›</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex flex-wrap items-center gap-3 pt-4 border-t border-white/10 mt-auto">
+                    {selectedProject.link && selectedProject.link !== '#' ? (
+                      <a 
+                        href={selectedProject.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center gap-2 bg-white text-black px-5 py-2.5 rounded-full font-bold uppercase tracking-wider text-[11px] sm:text-xs hover:bg-primary hover:text-white transition-all duration-300 shadow-md cursor-pointer"
+                      >
+                        <GithubIcon className="w-4 h-4" />
+                        View Code
+                      </a>
+                    ) : (
+                      <span className="flex items-center gap-2 bg-white/10 text-gray-400 px-5 py-2.5 rounded-full font-bold uppercase tracking-wider text-[11px] sm:text-xs">
+                        <GithubIcon className="w-4 h-4" />
+                        Code Private / Internal
                       </span>
-                    ))}
+                    )}
+
+                    {(selectedProject as any).liveLink && (
+                      <a 
+                        href={(selectedProject as any).liveLink}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center gap-2 bg-primary text-white border border-primary px-5 py-2.5 rounded-full font-bold uppercase tracking-wider text-[11px] sm:text-xs hover:bg-transparent hover:text-primary transition-all duration-300 shadow-md cursor-pointer"
+                      >
+                        <ExternalLink className="w-4 h-4" />
+                        Live Demo
+                      </a>
+                    )}
                   </div>
-                )}
-
-                {/* Project Brief */}
-                {(selectedProject as any).brief ? (
-                  <p className="text-muted-foreground text-xs sm:text-sm mb-4 leading-relaxed">
-                    {(selectedProject as any).brief}
-                  </p>
-                ) : (
-                  <p className="text-muted-foreground text-xs sm:text-sm mb-4 leading-relaxed">
-                    This is a featured project spanning modern web technologies, beautiful editorial design, and robust engineering. We focused heavily on the user experience and performance to deliver exceptional value.
-                  </p>
-                )}
-
-                {/* Key Features */}
-                {(selectedProject as any).keyFeatures && (
-                  <div className="mb-4">
-                    <h4 className="text-white font-bold text-[10px] sm:text-xs tracking-widest uppercase mb-2">Key Features</h4>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-2 text-muted-foreground text-xs sm:text-sm">
-                      {(selectedProject as any).keyFeatures.map((feature: string, i: number) => (
-                        <li key={i} className="flex items-start gap-2">
-                          <span className="text-primary mt-0.5">•</span>
-                          <span>{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                {/* What I Learned */}
-                {(selectedProject as any).learned && (
-                  <div className="mb-6">
-                    <h4 className="text-white font-bold text-[10px] sm:text-xs tracking-widest uppercase mb-2">What I Learned</h4>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-1 sm:gap-2 text-muted-foreground text-xs sm:text-sm">
-                      {(selectedProject as any).learned.map((item: string, i: number) => (
-                        <li key={i} className="flex items-start gap-2">
-                          <span className="text-primary mt-0.5">•</span>
-                          <span>{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
-
-                <div className="flex flex-wrap items-center gap-3">
-                  <a 
-                    href={selectedProject.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center gap-2 bg-white text-black px-5 py-3 rounded-full font-bold uppercase tracking-widest text-[10px] sm:text-xs hover:bg-primary hover:text-white transition-colors duration-300 w-fit"
-                  >
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
-                    View on GitHub
-                  </a>
-
-                  {(selectedProject as any).liveLink && (
-                    <a 
-                      href={(selectedProject as any).liveLink}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flex items-center gap-2 bg-primary text-white border border-primary px-5 py-3 rounded-full font-bold uppercase tracking-widest text-[10px] sm:text-xs hover:bg-transparent hover:text-primary transition-colors duration-300 w-fit"
-                    >
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-                      Live Demo
-                    </a>
-                  )}
                 </div>
-              </div>
-            </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+              </motion.div>
+            </div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
     </section>
   );
 };
