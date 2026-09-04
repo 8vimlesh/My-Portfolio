@@ -4,7 +4,7 @@ import { Quote, Sparkles } from 'lucide-react';
 import { portfolioData } from '../data/portfolio';
 
 export const ProcessAndQuote = () => {
-  const { education, skills, process, quote } = portfolioData;
+  const { experience, education, skills, process, quote } = portfolioData;
 
   return (
     <section id="process" className="relative z-30 bg-[#080808] rounded-t-[36px] md:rounded-t-[56px] border-t border-white/10 shadow-[0_-30px_90px_rgba(0,0,0,0.95)] pt-16 md:pt-24 pb-28 px-6 md:px-12 lg:px-24 container mx-auto max-w-[1300px] -mt-8">
@@ -13,7 +13,7 @@ export const ProcessAndQuote = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-16 lg:gap-12">
         
-        {/* Left Column - Education & Skills */}
+        {/* Left Column - Experience & Certifications */}
         <motion.div 
           className="flex flex-col"
           initial={{ opacity: 0, y: 25 }}
@@ -21,36 +21,97 @@ export const ProcessAndQuote = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.5 }}
         >
+          {/* Work Experience */}
+          {experience && experience.length > 0 && (
+            <div className="mb-12">
+              <h3 className="text-primary font-bold text-sm tracking-widest uppercase mb-8 border-b border-border pb-4 flex items-center justify-between">
+                <span>Experience</span>
+                <span className="text-[10px] bg-primary/20 text-primary px-2.5 py-0.5 rounded-full font-bold">
+                  {experience.length} Role
+                </span>
+              </h3>
+              <div className="space-y-8">
+                {experience.map((item, i) => (
+                  <div key={i} className="flex flex-col bg-secondary/40 border border-white/5 p-5 rounded-2xl">
+                    <div className="flex items-center justify-between gap-2 mb-1.5">
+                      <span className="text-primary font-mono text-xs font-bold flex items-center gap-1.5">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                        {item.period}
+                      </span>
+                      <span className="text-[10px] uppercase font-bold tracking-wider text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded flex items-center gap-1">
+                        <span>Remote</span>
+                        <span className="text-white/40">•</span>
+                        <span>WFH</span>
+                      </span>
+                    </div>
+                    <h4 className="font-bold text-lg text-white mb-0.5">{item.role}</h4>
+                    <p className="text-muted-foreground text-sm font-medium mb-3">{item.company}</p>
+                    
+                    <ul className="space-y-1.5 mb-4 text-xs text-gray-300">
+                      {item.highlights.map((bullet, idx) => (
+                        <li key={idx} className="flex items-start gap-2">
+                          <span className="text-primary font-bold mt-0.5">›</span>
+                          <span className="leading-relaxed">{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {item.techStack && (
+                      <div className="flex flex-wrap gap-1.5 pt-2 border-t border-white/5">
+                        {item.techStack.map((tech, idx) => (
+                          <span key={idx} className="text-[10px] font-semibold bg-white/5 text-gray-300 px-2 py-0.5 rounded border border-white/10">
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Certifications */}
           <div className="mb-12">
             <h3 className="text-primary font-bold text-sm tracking-widest uppercase mb-8 border-b border-border pb-4">
               Certifications
             </h3>
-            <div className="space-y-8">
+            <div className="space-y-6">
               {education.map((item, i) => (
                 <div key={i} className="flex flex-col">
                   <span className="text-muted-foreground text-xs font-bold mb-1">{item.years}</span>
-                  <h4 className="font-bold text-lg uppercase mb-1">{item.degree}</h4>
-                  <p className="text-muted-foreground">{item.institution}</p>
+                  <h4 className="font-bold text-base uppercase mb-1">{item.degree}</h4>
+                  <p className="text-muted-foreground text-sm">{item.institution}</p>
                 </div>
               ))}
             </div>
           </div>
+        </motion.div>
 
-          <div>
+        {/* Middle Column - Skills & Work Process */}
+        <motion.div 
+          className="flex flex-col"
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
+          {/* Skills & Stack */}
+          <div className="mb-12">
             <h3 className="text-primary font-bold text-sm tracking-widest uppercase mb-6 border-b border-border pb-4">
               Skills & Stack
             </h3>
-            <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-5">
               {skills.map((skillGroup, idx) => (
                 <div key={idx}>
-                  <h4 className="text-muted-foreground text-[10px] sm:text-xs uppercase tracking-widest font-bold mb-3">
+                  <h4 className="text-muted-foreground text-[10px] sm:text-xs uppercase tracking-widest font-bold mb-2.5">
                     {skillGroup.category}
                   </h4>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1.5">
                     {skillGroup.items.map((skill, i) => (
                       <span 
                         key={i} 
-                        className="px-3 py-1.5 rounded-full border border-border bg-secondary text-[10px] sm:text-xs font-medium tracking-wide"
+                        className="px-2.5 py-1 rounded-full border border-border bg-secondary text-[10px] sm:text-xs font-medium tracking-wide text-gray-300"
                       >
                         {skill}
                       </span>
@@ -60,16 +121,7 @@ export const ProcessAndQuote = () => {
               ))}
             </div>
           </div>
-        </motion.div>
 
-        {/* Middle Column - Work Process */}
-        <motion.div 
-          className="flex flex-col"
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
           <h3 className="text-primary font-bold text-sm tracking-widest uppercase mb-8 border-b border-border pb-4">
             Work Process
           </h3>

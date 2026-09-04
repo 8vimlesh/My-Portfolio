@@ -227,6 +227,28 @@ export const portfolioData = {
       ]
     }
   ],
+  experience: [
+    {
+      role: "Software Development Intern",
+      company: "Spacece India Foundation",
+      period: "Aug 2026 – Present",
+      type: "Remote Internship",
+      location: "Remote (WFH)",
+      highlights: [
+        "Developing a WhatsApp-based CRM platform for centralized parent communication, inquiry management, campaigns, and automated follow-ups.",
+        "Working with React, TypeScript, Supabase/PostgreSQL, Meta WhatsApp Cloud API, and n8n to build and integrate the platform.",
+        "Implementing real-time messaging, contact management, inquiry pipelines, analytics, and workflow automation."
+      ],
+      techStack: [
+        "React",
+        "TypeScript",
+        "Supabase",
+        "PostgreSQL",
+        "Meta WhatsApp Cloud API",
+        "n8n"
+      ]
+    }
+  ],
   education: [
     {
       degree: "Deloitte Data Analytics Virtual Internship",
