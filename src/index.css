@@ -114,7 +114,8 @@
   top: 48%;
   transform: translateY(-50%);
   font-family: var(--font-display);
-  font-size: 24vw;
+  font-size: 18vw;
+  white-space: nowrap;
   line-height: 1;
   text-align: center;
   opacity: 0.22;
