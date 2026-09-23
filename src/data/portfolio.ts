@@ -1,4 +1,17 @@
 export const portfolioData = {
+  about: {
+    intro: "I’m a final-year B.Tech student pursuing Artificial Intelligence & Data Science at Sagar Institute of Research & Technology – Excellence (SIRTE), Bhopal, affiliated with Rajiv Gandhi Proudyogiki Vishwavidyalaya (RGPV).",
+    description: "I enjoy turning ideas into practical, scalable solutions and building projects that solve real-world problems. Alongside academics, I’ve gained hands-on experience through internships, certifications, and AI-driven projects.",
+    education: {
+      degree: "B.Tech in Artificial Intelligence & Data Science",
+      institution: "Sagar Institute of Research & Technology – Excellence (SIRTE)",
+      location: "Bhopal",
+      university: "Rajiv Gandhi Proudyogiki Vishwavidyalaya (RGPV)",
+      years: "2023–2027",
+      status: "Final year",
+      focus: ["Artificial Intelligence", "Machine Learning", "Generative AI", "Data Science", "Full-Stack Development"],
+    },
+  },
   // --- New UI Schema using Original Content ---
   hero: {
     title: "VIMLESH",

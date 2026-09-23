@@ -59,6 +59,23 @@ An interactive sales analytics dashboard to monitor business performance across 
 
 ## 🚀 About This Repository
 
+### Pages
+
+The portfolio uses separate routes in this order:
+
+1. `/` — name, portrait, and short introduction
+2. `/about` — biography, B.Tech education, and certifications
+3. `/projects` — project gallery, category filters, and project details
+4. `/experience` — internship and work experience
+5. `/tech-stack` — languages, frameworks, and tools
+
+Every page includes the shared contact footer and previous/next navigation.
+Edit personal details in `src/data/portfolio.ts` and navigation order in `src/data/navigation.ts`.
+
+For production hosting, all page URLs must fall back to `index.html` so direct visits
+and refreshes work with React Router. `vercel.json` provides this for Vercel;
+configure the equivalent SPA fallback if using another host.
+
 This repository hosts the source code for my interactive developer portfolio built with React, Tailwind CSS, and Framer Motion. 
 
 ### Running Locally

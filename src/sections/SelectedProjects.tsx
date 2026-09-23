@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowUpRight, X, ExternalLink, LayoutGrid, List, Sparkles } from 'lucide-react';
@@ -17,6 +17,7 @@ export const SelectedProjects = () => {
   const [selectedProject, setSelectedProject] = useState<typeof projects[0] | null>(null);
   const [activeCategory, setActiveCategory] = useState('all');
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   // Filter projects based on active category
   const filteredProjects = projects.filter((project) => {
@@ -43,47 +44,61 @@ export const SelectedProjects = () => {
   // Lock body scroll and handle ESC key when modal is open
   useEffect(() => {
     if (selectedProject) {
+      const previousOverflow = document.body.style.overflow;
+      const previousFocus = document.activeElement as HTMLElement | null;
       document.body.style.overflow = 'hidden';
+      dialogRef.current?.focus();
       const handleKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
           setSelectedProject(null);
         }
+        if (e.key === 'Tab') {
+          const elements = dialogRef.current?.querySelectorAll<HTMLElement>('button, a[href]');
+          if (!elements?.length) return;
+          const first = elements[0];
+          const last = elements[elements.length - 1];
+          if (e.shiftKey && (document.activeElement === first || document.activeElement === dialogRef.current)) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && (document.activeElement === last || document.activeElement === dialogRef.current)) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
       };
       window.addEventListener('keydown', handleKeyDown);
       return () => {
-        document.body.style.overflow = 'unset';
+        document.body.style.overflow = previousOverflow;
+        previousFocus?.focus({ preventScroll: true });
         window.removeEventListener('keydown', handleKeyDown);
       };
-    } else {
-      document.body.style.overflow = 'unset';
     }
   }, [selectedProject]);
 
   return (
-    <section id="projects" className="relative z-20 bg-[#0d0d0d] rounded-t-[36px] md:rounded-t-[56px] border-t border-white/10 shadow-[0_-30px_90px_rgba(0,0,0,0.95)] pt-14 md:pt-20 pb-24 px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24 max-w-[1720px] 2xl:max-w-[1880px] mx-auto mt-8 w-full">
-      {/* Editorial Curtain Grip Bar */}
-      <div className="w-12 h-1.5 bg-white/15 rounded-full mx-auto mb-10 hover:bg-primary/50 transition-colors" />
+    <section id="projects" className="portfolio-page" aria-label="Projects">
 
       {/* Header & Controls */}
-      <div className="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-10 gap-6">
+      <div className="flex flex-col mb-10 gap-8">
         <div>
-          <div className="flex items-center gap-2 mb-2">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-            <span className="text-xs font-bold uppercase tracking-widest text-primary">Curated Portfolio</span>
+          <div className="flex items-center gap-3 mb-5 text-primary">
+            <span className="font-mono text-xs">03</span><span className="h-px w-8 bg-primary/50" aria-hidden="true" />
+            <span className="text-xs font-semibold uppercase tracking-[0.2em]">Ideas put into practice</span>
           </div>
-          <motion.h2 
-            className="font-display text-3xl sm:text-4xl md:text-5xl lg:text-6xl uppercase tracking-tighter text-white"
+          <motion.h1
+            className="font-display text-4xl sm:text-5xl lg:text-7xl uppercase tracking-tighter text-white"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
             Selected Projects
-          </motion.h2>
+          </motion.h1>
+          <p className="mt-5 max-w-2xl text-base sm:text-lg leading-relaxed text-muted-foreground">A selection of full-stack applications, AI experiments, and data-driven tools.</p>
         </div>
 
         {/* Filters & View Switcher */}
-        <div className="flex flex-wrap items-center gap-3 w-full lg:w-auto justify-between lg:justify-end">
+        <div className="flex flex-wrap items-center gap-3 w-full justify-between">
           {/* Category Tabs */}
           <div className="flex flex-wrap items-center gap-1.5 bg-[#171717] p-1.5 rounded-2xl border border-white/10">
             {categories.map((cat) => {
@@ -92,6 +107,7 @@ export const SelectedProjects = () => {
                 <button
                   key={cat.id}
                   onClick={() => setActiveCategory(cat.id)}
+                  aria-pressed={isActive}
                   className={`relative px-3.5 py-1.5 rounded-xl text-xs font-semibold tracking-wider uppercase transition-all duration-300 cursor-pointer ${
                     isActive ? 'text-white font-bold' : 'text-gray-400 hover:text-white'
                   }`}
@@ -118,6 +134,7 @@ export const SelectedProjects = () => {
               }`}
               title="Grid View"
               aria-label="Grid View"
+              aria-pressed={viewMode === 'grid'}
             >
               <LayoutGrid className="w-4 h-4" />
             </button>
@@ -128,6 +145,7 @@ export const SelectedProjects = () => {
               }`}
               title="List View"
               aria-label="List View"
+              aria-pressed={viewMode === 'list'}
             >
               <List className="w-4 h-4" />
             </button>
@@ -139,7 +157,7 @@ export const SelectedProjects = () => {
       {viewMode === 'grid' && (
         <motion.div 
           layout
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6"
         >
           <AnimatePresence mode="popLayout">
             {filteredProjects.map((project, index) => (
@@ -151,6 +169,10 @@ export const SelectedProjects = () => {
                 exit={{ opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.35, delay: index * 0.04 }}
                 onClick={() => setSelectedProject(project)}
+                role="button"
+                tabIndex={0}
+                aria-label={`View details: ${project.title}`}
+                onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setSelectedProject(project); } }}
                 className="group cursor-pointer flex flex-col bg-[#141414] hover:bg-[#1a1a1a] border border-white/10 hover:border-primary/50 rounded-2xl p-4 transition-all duration-300 shadow-lg hover:shadow-[0_10px_30px_rgba(0,0,0,0.8)]"
               >
                 {/* Compact 16:10 Image Container */}
@@ -158,6 +180,7 @@ export const SelectedProjects = () => {
                   <img 
                     src={project.image} 
                     alt={project.title}
+                    loading="lazy"
                     className="w-full h-full object-cover grayscale opacity-75 group-hover:scale-105 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-500 ease-out"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
@@ -176,9 +199,9 @@ export const SelectedProjects = () => {
                 {/* Bottom Details */}
                 <div className="flex flex-col flex-1 justify-between">
                   <div>
-                    <h4 className="font-bold text-base sm:text-lg uppercase tracking-wide text-white group-hover:text-primary transition-colors duration-200 line-clamp-1 mb-2">
+                    <h2 className="font-bold text-base sm:text-lg tracking-tight text-white group-hover:text-primary transition-colors duration-200 line-clamp-2 mb-3">
                       {project.title}
-                    </h4>
+                    </h2>
 
                     {/* Tech Stack Pills */}
                     {project.techStack && (
@@ -227,6 +250,10 @@ export const SelectedProjects = () => {
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.25, delay: index * 0.03 }}
                 onClick={() => setSelectedProject(project)}
+                role="button"
+                tabIndex={0}
+                aria-label={`View details: ${project.title}`}
+                onKeyDown={(event) => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); setSelectedProject(project); } }}
                 className="group cursor-pointer py-4 sm:py-5 px-3 sm:px-6 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:bg-white/[0.03] transition-colors rounded-xl"
               >
                 <div className="flex items-center gap-4 sm:gap-6">
@@ -234,9 +261,9 @@ export const SelectedProjects = () => {
                     {project.id}
                   </span>
                   <div>
-                    <h4 className="font-bold text-base sm:text-xl text-white group-hover:text-primary transition-colors">
+                    <h2 className="font-bold text-base sm:text-xl text-white group-hover:text-primary transition-colors">
                       {project.title}
-                    </h4>
+                    </h2>
                     <p className="text-xs text-muted-foreground uppercase tracking-wider mt-0.5">
                       {project.category}
                     </p>
@@ -284,6 +311,11 @@ export const SelectedProjects = () => {
               
               {/* Modal Card */}
               <motion.div
+                ref={dialogRef}
+                role="dialog"
+                aria-modal="true"
+                aria-label={selectedProject.title}
+                tabIndex={-1}
                 initial={{ opacity: 0, scale: 0.94, y: 25 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
                 exit={{ opacity: 0, scale: 0.94, y: 25 }}

@@ -1,132 +1,49 @@
-import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
-import { Globe, Sparkles } from 'lucide-react';
+﻿import { Globe, Sparkles } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import { portfolioData } from '../data/portfolio';
 
-export const Hero = () => {
-  const { hero } = portfolioData;
-  const { scrollY } = useScroll();
-
-  // Curtain Depth Parallax Effects for the Hero Section
-  const heroScale = useTransform(scrollY, [0, 600], [1, 0.94]);
-  const heroOpacity = useTransform(scrollY, [0, 550], [1, 0.45]);
-  const heroY = useTransform(scrollY, [0, 600], [0, 80]);
-
-  // Profile Image Parallax Effects
-  const profileY = useTransform(scrollY, [0, 800], [0, 150]);
-  const profileRotateX = useTransform(scrollY, [0, 800], [0, 15]);
-  const profileScale = useTransform(scrollY, [0, 800], [1, 0.9]);
-  const profileOpacity = useTransform(scrollY, [0, 600], [1, 0.5]);
+export function Hero() {
+  const { hero, education, projects, skills } = portfolioData;
+  const stats = [
+    { value: `${education.length}+`, label: 'Certifications', path: '/about' },
+    { value: `${projects.length}+`, label: 'Projects completed', path: '/projects' },
+    { value: `${skills.length}+`, label: 'Core skills', path: '/tech-stack' },
+  ];
 
   return (
-    <motion.section 
-      style={{ scale: heroScale, opacity: heroOpacity, y: heroY }}
-      className="sticky top-0 min-h-screen flex items-center overflow-hidden pt-24 pb-16 z-10 origin-top w-full"
-    >
-      {/* Giant Background Text */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full flex justify-center pointer-events-none z-0 select-none">
-        <h1 className="font-display text-[26vw] md:text-[18vw] lg:text-[19vw] leading-none whitespace-nowrap text-gradient-red opacity-20 transform -translate-y-8">
-          {hero.title}
-        </h1>
-      </div>
-
-      <div className="relative z-10 w-full max-w-[1720px] 2xl:max-w-[1880px] mx-auto px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24 flex flex-col lg:flex-row items-center justify-between h-full gap-8 lg:gap-16">
-        
-        {/* Left Content */}
-        <div className="flex-1 w-full flex flex-col justify-center items-start pt-8 lg:pt-0 z-20">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <p className="font-script text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-foreground mb-2 sm:mb-4">
-              {hero.greeting}
-            </p>
-            
-            <h2 className="font-display text-[13vw] sm:text-6xl md:text-8xl lg:text-[7.5rem] xl:text-[8.5rem] leading-[0.82] tracking-tighter text-foreground mb-4 sm:mb-6 uppercase">
-              {hero.name.split('\n').map((line, i) => (
-                <React.Fragment key={i}>
-                  {line}
-                  <br />
-                </React.Fragment>
-              ))}
-            </h2>
-
-            <div className="inline-block bg-primary/10 border border-primary/20 px-4 py-2 rounded-full mb-6">
-              <p className="text-primary font-bold text-sm md:text-base tracking-widest uppercase">
-                {hero.role}
-              </p>
-            </div>
-
-            <p className="text-muted-foreground text-base sm:text-lg md:text-xl w-full max-w-xl leading-relaxed mb-8">
-              {hero.description}
-            </p>
-
-            <div className="flex items-center gap-3 text-sm uppercase tracking-widest text-muted-foreground border border-border px-5 py-3 rounded-full w-fit">
-              <Globe className="w-4 h-4 text-primary" />
-              {hero.availability}
-            </div>
-          </motion.div>
+    <section className="landing-hero" aria-label="Introduction">
+      <div aria-hidden="true" className="landing-watermark text-gradient-red">{hero.title}</div>
+      <div className="landing-layout">
+        <div className="landing-copy">
+          <p className="font-script landing-greeting">{hero.greeting}</p>
+          <h1 className="font-display landing-name">
+            {hero.name.split('\n').map((line) => <span key={line} className="block">{line}</span>)}
+          </h1>
+          <p className="landing-role">{hero.role}</p>
+          <p className="landing-description">{hero.description}</p>
+          <p className="landing-availability"><Globe size={18} className="text-primary shrink-0" aria-hidden="true" />{hero.availability}</p>
         </div>
-
-        {/* Right Content - Photo & Stats */}
-        <div className="flex-1 relative w-full h-[45vh] sm:h-[55vh] lg:h-[72vh] xl:h-[76vh] min-h-[360px] sm:min-h-[440px] flex items-end justify-center lg:justify-end" style={{ perspective: 1200 }}>
-          <motion.div 
-            className="absolute inset-0 overflow-visible origin-bottom flex items-end justify-center lg:justify-end"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            style={{ 
-              y: profileY,
-              rotateX: profileRotateX,
-              scale: profileScale,
-              opacity: profileOpacity,
-            }}
-          >
-            {/* Dark gradient overlay for moody effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-transparent z-10 pointer-events-none" />
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent z-10 pointer-events-none" />
-            <img 
-              src="/profile-transparent.png" 
-              alt="Portrait" 
-              className="w-full h-full object-contain object-bottom scale-[0.95] sm:scale-[1.0] lg:scale-[1.08] xl:scale-[1.15] origin-bottom grayscale opacity-90 drop-shadow-2xl"
-            />
-          </motion.div>
-
-          {/* Floating Tagline Card */}
-          <motion.div 
-            className="absolute bottom-4 lg:bottom-12 left-0 lg:-left-12 xl:-left-20 z-20 glass-card p-4 sm:p-6 rounded-2xl flex items-center gap-3 sm:gap-4 w-max shadow-2xl"
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-          >
-            <Sparkles className="w-6 h-6 text-primary shrink-0 animate-pulse" />
-            <p className="font-bold text-sm tracking-widest uppercase whitespace-nowrap">
-              {hero.tagline}
-            </p>
-          </motion.div>
-
-          {/* Vertical Stats Blocks */}
-          <motion.div 
-            className="absolute right-0 lg:-right-4 xl:right-0 top-1/2 -translate-y-1/2 z-20 hidden lg:flex flex-col gap-8 bg-black/40 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-white/5 shadow-2xl"
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-          >
-            {hero.stats.map((stat, i) => (
-              <div key={i} className="flex flex-col items-end border-r-2 border-primary/40 pr-5">
-                <span className="font-display text-4xl xl:text-5xl text-primary mb-1">{stat.value}</span>
-                <span className="text-xs uppercase tracking-widest text-muted-foreground text-right w-24">
-                  {stat.label}
-                </span>
-              </div>
+        <div className="landing-visual">
+          <div className="landing-portrait">
+            <img src="/profile-transparent.png" alt="Vimlesh Tiwari" fetchPriority="high" className="landing-photo" />
+            <div className="landing-photo-fade" aria-hidden="true" />
+          </div>
+          <div className="landing-tagline">
+            <Sparkles className="text-primary shrink-0" size={27} aria-hidden="true" />
+            <p>{hero.tagline}</p>
+          </div>
+          <ul className="landing-stats" aria-label="Portfolio at a glance">
+            {stats.map((stat) => (
+              <li key={stat.label}>
+                <Link to={stat.path} className="landing-stat-link" aria-label={`${stat.value} ${stat.label}`}>
+                  <span className="landing-stat-label">{stat.label}</span>
+                  <span className="font-display landing-stat-value">{stat.value}</span>
+                </Link>
+              </li>
             ))}
-          </motion.div>
+          </ul>
         </div>
-
       </div>
-    </motion.section>
+    </section>
   );
-};
+}

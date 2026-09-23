@@ -1,47 +1,56 @@
-import React from 'react';
-import { Sparkles, ArrowUpRight } from 'lucide-react';
-import { motion } from 'framer-motion';
+﻿import { useEffect, useRef, useState } from 'react';
+import { ArrowUpRight, Menu, X } from 'lucide-react';
+import { NavLink, Link, useLocation } from 'react-router-dom';
+import { pages } from '../../data/navigation';
 
-export const Navbar = () => {
+export function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const location = useLocation();
+
+  useEffect(() => { setIsOpen(false); }, [location]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        setIsOpen(false);
+        toggleRef.current?.focus();
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [isOpen]);
+
   return (
-    <motion.nav
-      initial={{ opacity: 0, y: -20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between px-6 sm:px-10 md:px-16 lg:px-20 xl:px-24 max-w-[1720px] 2xl:max-w-[1880px] mx-auto w-full py-8"
-    >
-      <a href="#" className="flex flex-col justify-center group">
-        <span className="text-primary font-bold text-xs tracking-widest uppercase mb-0.5">
-          Vimlesh Tiwari
-        </span>
-        <span className="text-[10px] text-muted-foreground tracking-widest uppercase">
-          Software & AI Engineer
-        </span>
-      </a>
-
-      {/* Nav Links */}
-      <div className="hidden md:flex items-center gap-8 text-xs font-semibold tracking-widest uppercase text-muted-foreground">
-        <a href="#projects" className="hover:text-white transition-colors duration-200">
-          Projects
-        </a>
-        <a href="#process" className="hover:text-white transition-colors duration-200">
-          Process & Stack
-        </a>
-        <a href="#contact" className="hover:text-white transition-colors duration-200">
-          Contact
-        </a>
-      </div>
-
-      <a 
-        href="#contact" 
-        className="flex items-center gap-2 px-4 py-2 rounded-full border border-primary/30 bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all duration-300 group cursor-pointer"
-      >
-        <span className="text-xs font-bold tracking-widest uppercase">
-          Hire Me
-        </span>
-        <Sparkles className="w-3.5 h-3.5 animate-pulse" />
-      </a>
-    </motion.nav>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/5 bg-background/95 backdrop-blur-xl">
+      <nav aria-label="Main navigation" className="site-shell flex min-h-24 items-center justify-between gap-5">
+        <Link to="/" aria-label="Vimlesh Tiwari — Home" className="flex shrink-0 flex-col gap-1">
+          <span className="text-primary font-bold text-xs tracking-widest uppercase">Vimlesh Tiwari</span>
+          <span className="text-[9px] sm:text-[10px] text-muted-foreground tracking-widest uppercase">Software & AI Engineer</span>
+        </Link>
+        <div className="hidden lg:flex items-center gap-5 xl:gap-8">
+          {pages.map((page) => (
+            <NavLink key={page.path} to={page.path} end className={({ isActive }) => `py-3 text-xs font-semibold transition-colors hover:text-white ${isActive ? 'text-primary' : 'text-muted-foreground'}`}>
+              {page.label}
+            </NavLink>
+          ))}
+        </div>
+        <a href="#contact" className="hidden lg:inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-2.5 text-xs font-semibold text-primary transition-colors hover:bg-primary hover:text-white">Contact me <ArrowUpRight size={15} aria-hidden="true" /></a>
+        <button ref={toggleRef} type="button" aria-expanded={isOpen} aria-controls="mobile-navigation" aria-label={isOpen ? 'Close menu' : 'Open menu'} onClick={() => setIsOpen(!isOpen)} className="lg:hidden flex h-11 w-11 items-center justify-center rounded-full border border-white/15">
+          {isOpen ? <X size={21} aria-hidden="true" /> : <Menu size={21} aria-hidden="true" />}
+        </button>
+      </nav>
+      {isOpen && (
+        <nav id="mobile-navigation" aria-label="Mobile navigation" className="lg:hidden border-t border-white/10 bg-background px-6 py-4 shadow-2xl">
+          {pages.map((page, index) => (
+            <NavLink key={page.path} to={page.path} end onClick={() => setIsOpen(false)} className={({ isActive }) => `flex items-center gap-4 rounded-lg px-3 py-3.5 text-sm ${isActive ? 'bg-primary/10 text-primary' : 'text-white/75 hover:bg-white/5'}`}>
+              <span className="font-mono text-xs opacity-50">0{index + 1}</span>{page.label}
+            </NavLink>
+          ))}
+          <a href="#contact" onClick={() => setIsOpen(false)} className="mt-2 flex items-center justify-between border-t border-white/10 px-3 py-4 text-sm text-primary">Contact me <ArrowUpRight size={16} aria-hidden="true" /></a>
+        </nav>
+      )}
+    </header>
   );
-};
-
+}
